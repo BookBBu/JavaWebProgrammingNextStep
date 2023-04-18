@@ -30,11 +30,12 @@ git checkout -b {본인의 깃허브 이름}/{주차}week/{팀 번호}team
 | 5. **Push**
 ```bash
 git add .
-git commit -m "[{주차}week]/{팀 번호} : team 발표자 본인의 깃허브 이름"
+git commit -m "[{주차}week/{팀 번호}team] 발표자 본인의 깃허브 이름 : {챕터}장 챕터명 또는 수정 사항"
 git push origin {생성한 브랜치}
 ```
 
-> ex. git commit -m "[1week]/1team : SUbbb"
+> ex. git commit -m "[1week/1team] SUbbb : 1장 첫 번째 양파 껍질 벗기기"
+> ex. git commit -m "[1week/1team] SUbbb : 2장 문자열 계산기 구현을 통한 테스트와 리팩토링 2.3 추가"
 
 | 6. **Pull request 생성**
 - Pull Request Name : {본인의 깃허브 이름} : [{주차명}]
