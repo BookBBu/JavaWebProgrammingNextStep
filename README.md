@@ -35,6 +35,7 @@ git push origin {생성한 브랜치}
 ```
 
 > ex. git commit -m "[1week/1team] SUbbb : 1장 첫 번째 양파 껍질 벗기기"
+
 > ex. git commit -m "[1week/1team] SUbbb : 2장 문자열 계산기 구현을 통한 테스트와 리팩토링 2.3 추가"
 
 | 6. **Pull request 생성**
