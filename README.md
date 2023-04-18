@@ -43,6 +43,7 @@ git push origin {생성한 브랜치}
   > ex. [1week/1team] SUbbb : 1 ~ 2장
 - Content : 해당 주차 내용을 간략하게 2-3줄 요약
 - Assignees : 본인
+- Label : 스터디 진행 도서
 
 | 7. **스터디 후, merge**
 
