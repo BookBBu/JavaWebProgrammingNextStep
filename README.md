@@ -39,8 +39,8 @@ git push origin {생성한 브랜치}
 > ex. git commit -m "[1week/1team] SUbbb : 2장 문자열 계산기 구현을 통한 테스트와 리팩토링 2.3 추가"
 
 | 6. **Pull request 생성**
-- Pull Request Name : {본인의 깃허브 이름} : [{주차명}]
-  > ex. SUbbb : [1week]/1team
+- Pull Request Name : [{주차}week/{팀 번호}team] {본인의 깃허브 이름} : {진행한 챕터}장
+  > ex. [1week/1team] SUbbb : 1 ~ 2장
 - Content : 해당 주차 내용을 간략하게 2-3줄 요약
 - Assignees : 본인
 
