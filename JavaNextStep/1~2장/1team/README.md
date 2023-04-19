@@ -239,7 +239,6 @@ public class CalculatorTest {
 ```
 
 > `assertEquals()`는 `static` 메소드이기에 `import static`으로 사용할 수 있다.
-> 
 
 해당 메소드는 2개의 인자를 받는다.
 
@@ -480,12 +479,211 @@ JUnit은 `@RunWith`, `@Rule`과 같은 어노테이션을 이용해 기능을 �
 
 > **else를 사용하지 마라.**
 
-—
+---
 
 ## 🚩 테스트와 리팩토링을 통한 문자열 계산기 구현
+문자열 계산기의 요구사항은 매우 단순한 수준이다. 하지만 이정도 수준의 소스코드 또한 복잡도가 금방 증가한다는 것을 알 수 있다.
 
+→ 새로운 요구사항의 추가 구현이 어려워지고, 테스트 실패 시 디버깅 또한 쉽지 않다.
 
-—
+**⇒ 복잡도를 낮춰야 한다!!!**
+
+> **끊임없는 리팩토링으로 소스 코드를 깔끔하게 구현해서 복잡도를 낮추자.**
+> 
+
+### 요구사항을 작은 단위로 나누기
+
+> 분할 정복 알고리즘처럼, 복잡한 문제를 풀기 위해 해야 할 작업은 먼저 복잡한 문제를 작은 단위로 나눠 좀 더 쉬운 문제로 만드는 것이다.
+
+### 모든 단계의 끝은 리팩토링
+
+> 각 요구사항을 완료한 후, 다음 단계로 넘어가기 위해서는 결과를 확인한 후 리팩토링까지 완료해야 한다.
+
+### 문자열 계산기 구현
+
+각 요구사항별로 구현해본다.
+
+> 👨‍💻 **1. 빈 문자열 또는 null 값을 입력할 경우 0을 반환해야 한다.**
+
+```java
+if (text == null || text.isEmpty()) {
+    return 0;
+}
+```
+- ❗ **테스트 메소드 이름에는 한글을 사용할 수 있다!**
+
+> 👨‍💻 **2. 숫자 하나를 문자열로 입력할 경우 해당 숫자를 반환한다.**
+
+```java
+int number = Integer.parseInt(token);
+```
+
+> 👨‍💻 **3. 숫자 두개를 쉼표 구분자로 입력할 경우 두 숫자의 합을 반환한다.**
+
+```java
+if (text.contains(",")) {
+    String[] values = text.split(",");
+    int sum = 0;
+    for (String value : values) {
+            sum += Integer.parseInt(value);
+    }
+}
+```
+
+현재까지 구현에서 불편한 부분은 숫자 하나만 주어지는 경우와 쉼표 구분자를 포함하는 경우를 따로 분기해서 처리해야 한다는 점이다.
+
+→ 숫자가 하나인 경우 `split(”,”)` 를 수행하면 해당 숫자를 담은 `String[]`이 반환되므로 함께 사용할 수 있다!
+
+```java
+// if (text.contains(","))
+String[] values = text.split(",");
+int sum = 0;
+...
+```
+
+이제 if 절은 하나 제거했다. 추가로 리팩토링할 부분을 찾아보면, **숫자의 합을 구하는 부분**을 별도의 메소드로 분리할 수 있어 보인다.
+
+```java
+private int sum(String[] values) {
+    int sum = 0;
+    for (String value : values) {
+        sum += Integer.parseInt(value);
+    }
+    return sum;
+}
+```
+
+- 하지만 위 메소드는 `sum`이라는 이름과 달리 **문자열을 정수로 변환**하고, **이를 모두 더하는 작업** 2가지를 하고 있다.
+    **→ 리팩토링 원칙을 지키지 못하고 있다!**
+    
+
+```java
+private int[] toInts(String[] values) {
+    int[] numbers = new int[values.length];
+    for (int index = 0; index < values.length; index++) {
+        numbers[index] = Integer.parseInt(values[index]);
+    }
+    return numbers;
+    
+    // 스트림을 활용하는 방법
+    // return Arrays.stream(values).mapToInt(Integer::parseInt).toArray();
+}
+
+private int sum(int[] numbers) {
+    int sum = 0;
+    for (int number : numbers) {
+        sum += number;
+    }
+    return sum;
+    
+    // 스트림을 활용하는 방법
+    // return Arrays.stream(numbers).sum();
+}
+```
+
+> 상당히 극단적인 리팩토링이다. 하지만 이렇게 연습해야 나중에 리팩토링을 쉽게 할 수 있을 것이다.
+
+**리팩토링한 후 주의깊게 봐야하는 부분은 `private` 메소드가 아닌 `public`으로 공개되는 메소드가 얼마나 읽기 쉽고 이해하기 쉬운가이다.**
+
+- 첫번째 요구사항 또한 다른 메소드(ex. `isBlank()`)로 분리할 수 있다.
+
+리팩토링을 극단적으로 함으로써, **해당 메소드가 하는 역할을 최대한 쉽게 파악**할 수 있게 된다.
+
+> **필자는 여기서 세부 구현에 집중하도록 하지 않고 논리적인 로직을 쉽게 파악할 수 있도록 구현하는 것이 읽기 좋은 코드라고 한다.**
+
+> 👨‍💻 **4. 구분자를 쉼표 이외에 콜론을 사용할 수 있다.**
+
+```java
+String[] tokens = text.split(",|:");
+```
+
+- 구분자를 여러 개 사용할 때는 `|`로 구분한다.
+
+> 👨‍💻 **5. “//”와 “\n” 문자 사이에 커스텀 구분자를 지정할 수 있다.**
+
+```java
+Matcher matcher = Pattern.compile("//(.)\n(.*)").matcher(text);
+if (matcher.find()) {
+    String customDelimiter = matcher.group(1);
+    String[] tokens = matcher.group(2).split(customDelimiter);
+}
+```
+
+- `compile()` : 주어진 정규 표현식으로부터 패턴을 생성
+- `matcher()` : 패턴에 매칭할 문자열을 입력해 Matcher 객체 생성
+- `group(int)` : 매칭되는 문자열 중 group번째 그룹의 문자열 반환
+    - 0은 그룹의 전체 패턴을 의미 `group(0) = group()`
+
+이렇게 **정규표현식**을 활용하면 복잡한 문자열에서 원하는 문자열을 찾거나 특정 패턴을 찾는데 유용하다.
+
+> 👨‍💻 **6. 문자열 계산기에 음수를 전달하는 경우 RuntimeException 예외를 던진다.**
+
+```java
+private int toPositive(String value) {
+    int number = Integer.parseInt(value);
+    if (number < 0) {
+        throw new RuntimeException();
+    }
+    return number;
+}
+```
+
+### 리팩토링 이후 문자열 계산기 코드
+
+```java
+import java.util.Arrays;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+public class StringCalculator {
+    public int add(String text) {
+        if (isBlank(text)) {
+            return 0;
+        }
+
+        return sum(toInts(split(text)));
+    }
+
+    private boolean isBlank(String text) {
+        return text == null || text.isEmpty();
+    }
+
+    private String[] split(String text) {
+        String delimiter = ",|:";
+
+        // custom delimiter가 존재하는지 정규표현식으로 확인
+        Matcher matcher = Pattern.compile("//(.)\n(.*)").matcher(text);
+        if (matcher.find()) {
+            String customDelimiter = matcher.group(1);
+            delimiter += "|" + customDelimiter;
+            text = matcher.group(2);
+        }
+
+        return text.split(delimiter);
+    }
+
+    private int[] toInts(String[] values) {
+        return Arrays.stream(values).map(this::toPositive).mapToInt(Integer::intValue).toArray();
+    }
+
+    private int toPositive(String value) {
+        int number = Integer.parseInt(value);
+        if (number < 0) {
+            throw new RuntimeException();
+        }
+        return number;
+    }
+
+    private int sum(int[] numbers) {
+        return Arrays.stream(numbers).sum();
+    }
+}
+```
+
+---
 
 ### 🔗 출처
-[https://ko.wikipedia.org/wiki/JUnit](https://ko.wikipedia.org/wiki/JUnit)
+- [https://ko.wikipedia.org/wiki/JUnit](https://ko.wikipedia.org/wiki/JUnit)
+- [https://girawhale.tistory.com/77](https://girawhale.tistory.com/77)
+- [https://inpa.tistory.com/entry/JAVA-☕-정규식Regular-Expression-사용법-정리](https://inpa.tistory.com/entry/JAVA-%E2%98%95-%EC%A0%95%EA%B7%9C%EC%8B%9DRegular-Expression-%EC%82%AC%EC%9A%A9%EB%B2%95-%EC%A0%95%EB%A6%AC)
+- [https://youngju-js.tistory.com/30#step5](https://youngju-js.tistory.com/30#step5)
