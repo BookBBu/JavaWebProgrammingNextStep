@@ -108,8 +108,8 @@ public class CalculatorTest extends Calculator {
 > JUnit : AOP개념을 활용해 단위(메소드)로 테스팅을 할 수 있도록 해주는 테스트 프레임워크
 
 ### ETC
-현재 최신 버전은 Junit5
-버전 별 기능적 차이는 거의 없고 문법적, 성능적 차이가 존재
+현재 최신 버전은 Junit5<br>
+버전 별 기능적 차이는 거의 없고 문법적, 성능적 차이가 존재<br>
 예제는 기존 프로젝트와 JUnit 3의 버전 충돌로 인해 JUnit 4로 진행함
 
 ### 2.2.1 한번에 메소드 하나에만 집중
@@ -131,7 +131,7 @@ public class CalculatorTest {
     }
 }
 ```
-장점 : main에 종속적이었던 테스트 코드 부분을 제거
+장점 : main에 종속적이었던 테스트 코드 부분을 제거<br>
 단점 : 콘솔로 결과를 직접 확인해야함
 
 ### |2.2.1 결과 값을 눈이 아닌 프로그램을 통해 자동화
@@ -206,24 +206,25 @@ JUnit에서 throw exception으로 처리
 > 코드 컨벤션(Convention) : 코딩을 진행할 때 지켜야 하는 규칙
 
 [NHN 마크업 언어 코드 컨벤션](https://nuli.navercorp.com/data/convention/NHN_Coding_Conventions_for_Markup_Languages.pdf)
+<br>
 [네이버 자바 코드 컨벤션](https://naver.github.io/hackday-conventions-java)
 
 자주 쓰이는 코드 컨벤션
-- **변수 및 클래스 작명은 Camel 표기법을 준수**
+- **변수 및 클래스 작명은 Camel 표기법을 준수**<br>
 다양한 api가 Camel 표기법을 이용 ex) lombok, mybatis
-- **클래스 시작은 대문자로, 메소드와 변수는 소문자로 시작**
+- **클래스 시작은 대문자로, 메소드와 변수는 소문자로 시작**<br>
 클래스와 변수/메소드 간의 차이를 분명하게 하기 위해
-- **변수는 명사로, 메소드는 동사로 시작하여 작명**
+- **변수는 명사로, 메소드는 동사로 시작하여 작명**<br>
 이름을 이용해 상태인지 동작인지 판단하기 쉽게하기 위해 명사와 동사를 이용해 구분
-- **한줄이라도 if문은 중괄호를 사용**
-다중 if문인 경우 중괄호가 없는 것과 혼용되면 통일성이 떨어져 가독성 또한 떨어짐
+- **한줄이라도 if문은 중괄호를 사용**<br>
+다중 if문인 경우 중괄호가 없는 것과 혼용되면 통일성이 떨어져 가독성 또한 떨어짐<br>
 또한 테스팅은 조건문을 중심으로 진행하게 되는데 이때 해당 분기 확인을 위해 어차피 중괄호를 추가해야함
-- **else는 최대한 적게 사용**
+- **else는 최대한 적게 사용**<br>
 else는 반대로 말하면 내가 다루지 않는 모든 경우의 수를 말하므로 어떤 경우에 실행하는 것인지 복기하기 어려워 디버깅이 어려워짐
-- **들여쓰기는 한번만**
+- **들여쓰기는 한번만**<br>
 들여쓰기의 횟수를 자유롭게하면 코드의 가독성이 떨어짐
-- 한가지 영역의 조건은 한가지 if문에
-여러가지 조건을 하나의 if문에 넣으면 디버깅이 어려워짐
+- **한가지 영역의 조건은 한가지 if문에**<br>
+여러가지 조건을 하나의 if문에 넣으면 디버깅이 어려워짐<br>
 -> 오른쪽으로 길어지는 코드가 아래로 길어지는 코드보다 위험함
 
 ## 2.4 테스트와 리팩토링을 통한 문자열 계산기 구현
@@ -233,8 +234,9 @@ else는 반대로 말하면 내가 다루지 않는 모든 경우의 수를 말�
 리팩토링을 통해 코드의 복잡성을 낮추어야함
 ### 2.4.3 동영상을 통한 리팩토링
 책의 리팩토링 과정을 영상으로 제공
-[1단계](https://www.youtube.com/watch?v=08YYZ0acYNE&ab_channel=%EB%B0%95%EC%9E%AC%EC%84%B1)
-[2단계](https://www.youtube.com/watch?v=AAMap-pXXN4&ab_channel=%EB%B0%95%EC%9E%AC%EC%84%B1)
+<br>
+[1단계](https://www.youtube.com/watch?v=08YYZ0acYNE&ab_channel=%EB%B0%95%EC%9E%AC%EC%84%B1)<br>
+[2단계](https://www.youtube.com/watch?v=AAMap-pXXN4&ab_channel=%EB%B0%95%EC%9E%AC%EC%84%B1)<br>
 [3단계](https://www.youtube.com/watch?v=weE5PVX9D60&ab_channel=%EB%B0%95%EC%9E%AC%EC%84%B1)
 
 
