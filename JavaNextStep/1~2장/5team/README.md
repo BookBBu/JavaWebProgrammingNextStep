@@ -19,9 +19,9 @@
 - [LOGO](https://logo.com/) : 무료 AI 로고 자동 생성 사이트
 ## 1.3 처음에 배워야 하는 것들
 - 맥/ 리눅스 사용법
-- 다양한 프로그래밍 언어
-웹 개발자 -> 자바스크립트, Ruby
-모바일 개발자 -> Swift, Objective-c
+- 다양한 프로그래밍 언어<br>
+웹 개발자 -> 자바스크립트, Ruby<br>
+모바일 개발자 -> Swift, Objective-c<br>
 함수형 프로그래밍 언어 : Scala, Haskell, Rust
 - 전문 방향성 결정 
 ## ETC
