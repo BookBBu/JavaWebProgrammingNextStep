@@ -53,7 +53,7 @@
 2. 대략적인 부분을 잡아서 상세화
 3. 끝에서 부터 차례대로 베끼기
 
-# 2장 문제열 계산기 구현을 통한 테스트와 리팩토링
+# 2장 문열 계산기 구현을 통한 테스트와 리팩토링
 ## 2.1 main()메소드를 활용한 테스트의 문제점
 계산기 코드 
  ```java
@@ -85,19 +85,15 @@ public static void main(String[] args) {
 테스트 코드 
  
  ```java
-public class CalculatorTest extends Calculator {
-	@Test
-	public void add() {
-		Calculator cal = new Calculator();
-		System.out.println(cal.add(6, 3));
-	}
+ublic class CalculatorTest {
+    public static void main(String[] args) {
+        Calculator cal = new Calculator();
 
-	@Test
-	public void subtract() {
-		Calculator cal = new Calculator();
-		System.out.println(cal.subtract(6, 3));
-	}
-
+        System.out.println(cal.add(3,4));
+        System.out.println(cal.subtract(5,4));
+        System.out.println(cal.multiply(2,6));
+        System.out.println(cal.divide(8,4));
+    }
 }
 ```
 
