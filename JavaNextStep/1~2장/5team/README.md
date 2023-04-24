@@ -209,7 +209,7 @@ JUnit에서 throw exception으로 처리
 <br>
 [네이버 자바 코드 컨벤션](https://naver.github.io/hackday-conventions-java)
 
-자주 쓰이는 코드 컨벤션
+**자주 쓰이는 코드 컨벤션**
 - **변수 및 클래스 작명은 Camel 표기법을 준수**<br>
 다양한 api가 Camel 표기법을 이용 ex) lombok, mybatis
 - **클래스 시작은 대문자로, 메소드와 변수는 소문자로 시작**<br>
@@ -246,7 +246,7 @@ else는 반대로 말하면 내가 다루지 않는 모든 경우의 수를 말�
 
 안정적인 리팩토링은 견고한 테스트를 바탕으로 진행되어야 함
 ### ETC
-TDD 개발 사이클
+**TDD 개발 사이클**<br>
 설계 -> 테스트 시나리오 작성 -> 개발 -> 리팩토링
 
 ### 2.5.2 정규표현식
@@ -255,7 +255,7 @@ TDD 개발 사이클
 https://regexr.com/ 를 통해 학습 가능
 
 ### ETC
-정규표현식 자바 클래스
+**정규표현식 자바 클래스**
 - Pattern 
     * 정규표현식을 이용해 문자열 패턴에 만족하는지 값을 알려주는 클래스
     * 문자열 패턴을 이용해 패턴 생성
@@ -269,7 +269,7 @@ https://regexr.com/ 를 통해 학습 가능
     *  contains VS match
         -  contains는 포함이 되어있나 아닌가, match는 해당 패턴에 맞는가(equals) 
 
-자주 쓰이는 정규 표현식
+**자주 쓰이는 정규 표현식**
 - . : 모든 문자열
 - [0-9] : 모든 숫자
 - [a-z] : 모든 소문자
@@ -277,7 +277,7 @@ https://regexr.com/ 를 통해 학습 가능
 - [a-zA-Z] : 모든 영문자
 - [^0-9] : 숫자가 아닌 모든 문자
 
-도움이 되는 영상 및 사이트
-[정규표현식, 더이상 미루지 말자](https://www.youtube.com/watch?v=t3M6toIflyQ&list=PLT9gaICC_WnqwpgUgxfdz-5AmHHXJcfX9&index=2&t=746s&ab_channel=%EB%93%9C%EB%A6%BC%EC%BD%94%EB%94%A9) : 정규표현식을 공부할 수 있는 20분 짜리 한국어 영상
-[Regexone](https://regexone.com/) : 정규표현식을 간단한 예제와 함께 공부할 수 있는 영문 사이트
+**도움이 되는 영상 및 사이트**<br>
+[정규표현식, 더이상 미루지 말자](https://www.youtube.com/watch?v=t3M6toIflyQ&list=PLT9gaICC_WnqwpgUgxfdz-5AmHHXJcfX9&index=2&t=746s&ab_channel=%EB%93%9C%EB%A6%BC%EC%BD%94%EB%94%A9) : 정규표현식을 공부할 수 있는 20분 짜리 한국어 영상<br>
+[Regexone](https://regexone.com/) : 정규표현식을 간단한 예제와 함께 공부할 수 있는 영문 사이트<br>
 [Regex101](https://regex101.com): 정규표현식이 맞나 확인할 수 있는 사이트
