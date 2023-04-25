@@ -37,7 +37,7 @@
 - [칸 아카데미의 컴퓨터 교육](https://ko.khanacademy.org/computing/computer-programming) : 자바스크립트/html/css에 관한 튜토리얼 사이트
 ## 1.5 본격적으로 웹 프로그래밍에 도전하기
 ### 1.5.1 온라인 강의를 통한 학습
-- [생활코당](https://opentutorials.org/course/1) : PHP 기반 웹 어플리케이션 개발 교육 하이트
+- [생활코딩](https://opentutorials.org/course/1) : PHP 기반 웹 어플리케이션 개발 교육 하이트
 - [Codecademy](https://www.codecademy.com/) : 프로그래밍 언어 튜토리얼 사이트
 - [W3Schools](https://www.w3schools.com/) : 다양한 웹관련 기술의 사용법을 예제와 함께 쉽게 공부할 수 있는 사이트
 ### 1.5.2 책을 통한 학습
