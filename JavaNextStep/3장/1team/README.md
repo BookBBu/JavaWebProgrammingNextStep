@@ -525,3 +525,92 @@ http://dveamer.github.io/backend/HowToUseSlf4j.html
 
 4. 파라미터 개수가 3개 이상이면 가용 로그 레벨을 체크하기 전에 Object[] 를 생성하는 비용이 발생함.  
     최대한 파라미터의 개수를 2개 이하로 맞추기 위해 노력해야 하며 클래스는 toString() 메서드를 활용.
+    
+* * * 
+### **Maven과 Gradle의 차이점**
+https://dev-coco.tistory.com/65    
+요약   
+- **Maven**   
+Maven의 기능을 이용하기 위해 POM.XML 사용 
+
+  - pom.xml에서 주요하게 다루는 기능   
+프로젝트 정보 : 프로젝트의 이름, 라이센스 등   
+빌드 설정 : 소스, 리소스, 라이프사이클별 실행한 플로그인 등 빌드와 관련된 설정   
+빌드 환경 : 사용자 환경 별로 달라질 수 있는 프로파일 정보   
+pom 연관 정보 : 의존 프로젝트(모듈), 상위 프로젝트, 포함하고 있는 하위 모듈 등
+
+- **Gradle**   
+빌드 속도가 Maven에 비해 10~100배 가량 빠름   
+JAVA, C/C++M Python 등을 지원   
+빌트툴인 Ant Builder와 Groovy 스크립트 기반으로 만들어져 기존    Ant의 역할과 배포 스크립트의 기능을 모두 사용 가능   
+
+pom.xml
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.5.2</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+    <groupId>com.example2</groupId>
+    <artifactId>demo-maven</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>demo-maven</name>
+    <description>Demo project for Spring Boot</description>
+    <properties>
+        <java.version>11</java.version>
+    </properties>
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+        </dependency>
+ 
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+ 
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+ 
+</project>
+```
+
+gradle
+```groovy
+plugins {
+    id 'org.springframework.boot' version '2.5.2'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'java'
+}
+ 
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+ 
+repositories {
+    mavenCentral()
+}
+ 
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+ 
+test {
+    useJUnitPlatform()
+}
+```
