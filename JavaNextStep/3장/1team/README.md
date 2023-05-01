@@ -8,6 +8,12 @@
 - 3장 초반에서 제시하는 원격 서버 배포는 각자 진행하는 것을 권장함.
   * AWS EC2 사용 (우분투 20.04)
   * SSH 프로그램 : XShell
+  * 한글 관련 이슈
+    ```
+    sudo locale-gen ko_KR.EUC-KR ko_KR.UTF-8
+    sudo dpkg-reconfigure locales
+    ```
+
   * JAVA 설치 (https://i5i5.tistory.com/266)
     ```
     $ sudo apt-get update 
@@ -19,7 +25,7 @@
     ```
 
     ```
-    sudo vi /etc/profile​
+    sudo vi /etc/profile
     ```
     `i` 눌러서 수정모드, 저장은 ESC 후, `:wp` 도중에 종료하고싶으면 `:q!`
 
@@ -40,19 +46,69 @@
     ......:/usr/lib/jvm/java-8-openjdk-amd64/bin
     ```
   * maven 설치 (https://jjeongil.tistory.com/1995)
+    ```
+    sudo apt update
+    sudo apt install maven
+    
+    /etc/profile 에 추가
+    export MAVEN_HOME=/usr/share/maven
+    export PATH=$PATH:$MAVEN_HOME/bin
+    ```
+
+  * /etc/profile
+    ```
+    ... (기본 내용)
+    export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
+    export PATH=$PATH:$JAVA_HOME/bin
+    export MAVEN_HOME=/usr/share/maven
+    export PATH=$PATH:$MAVEN_HOME/bin
+    ```
+    * 환경변수 확인하기
+        ``` 
+        printenv
+        ```
+  * 환경 변수 설정 후 `source /etc/profile`
   * EC2 외부 접속을 위한 인바운드 설정
+    * EC2 - 보안 그룹 - 인바운드 설정에서 TCP 포트의 8080 포트를 모든 IP에 대해 허용한다.
+  * git 설치 (https://coding-factory.tistory.com/502)
+    ```
+    sudo apt-get install git
+    sudo apt install git
+    ... 기타 설정 후 
+    git clone {Clone할 URL}
+    ``` 
+
+  * 외부에서 index.html 접속
+     * git clone 한 dir로 이동 
+        ```
+        ls
+        cd web-application-server
+
+        mvc clean package
+
+        java -cp target/classes:target/dependency/* webserver.WebServer 8080 &
+        (포트는 인바운드로 열었던 포트를 해야함)
+	        
+        종료를 원할 시,
+        ps -ef | grep "webserver"
+        좌측 pid 확인 후
+        kill -9 {pid}
+        ```
+        정상 작동 확인 후... EC2가 아닌 다른 브라우저에서  
+        `http://43.***.***.222:8080/index.html` 접속
+        홈페이지 접속 정상 여부 확인
 
 * * *   
 
 ## **요구사항 및 구현**
 - 3장에서의 실습 요구사항은 아래와 같다.
-  * [index.html 응답하기](#요구사항-1)
-  * [GET 방식으로 회원가입하기](#요구사항-2)
-  * [POST 방식으로 회원가입하기](#요구사항-3)
-  * [302 status code 적용](#요구사항-4)
-  * [로그인하기](#요구사항-5)
-  * [로그인 여부에 따른 사용자 목록 출력](#요구사항-6)
-  * [CSS 지원하기](#요구사항-7)
+  * [index.html 응답하기](#요구사항-1--indexhtml-응답하기)
+  * [GET 방식으로 회원가입하기](#요구사항-2--get-방식으로-회원가입하기)
+  * [POST 방식으로 회원가입하기](#요구사항-3--post-방식으로-회원가입하기)
+  * [302 status code 적용](#요구사항-4--302-status-code-적용)
+  * [로그인하기](#요구사항-5--로그인하기)
+  * [로그인 여부에 따른 사용자 목록 출력](#요구사항-6--로그인-했을-경우-목록-출력)
+  * [CSS 지원하기](#요구사항-7--css-적용)
   * [Logger](#logger)
   * [SLF4J 효율적인 사용법](#slf4j-효율적인-사용법)   
 
