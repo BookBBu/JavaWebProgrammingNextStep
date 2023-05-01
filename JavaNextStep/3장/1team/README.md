@@ -254,9 +254,18 @@ Header 값이 InputStream 을 통해 들어오는데 이 InputStream을 가져�
    
 ### **요구사항 4 : 302 status code 적용**
 https://developer.mozilla.org/ko/docs/Web/HTTP/Status/302   
-https://en.wikipedia.org/wiki/HTTP_302   
-301 302의 차이점 : 
-- 요구사항 구현 : 회원가입을 완료하면 `/index.html` 페이지 이동
+https://en.wikipedia.org/wiki/HTTP_302
+https://url.kr/rclkt1
+> 302 는 보통 주로 리다이렉트를 할 때 많이 사용됨
+해당 응답을 받으면, 브라우저는 HTTP 헤더에 들어있는 Location 필드를 찾아 해당 필드가 존재할 경우, Location 필드에 담긴 URL로 자동으로 리다이렉트
+- 301 302의 차이점 : 영구적(301)이냐 일시적(302)이냐의 차이를 가진다.
+  * 영구적?, 일시적? 
+    * 301의 경우 영구적으로 리디렉션이 된 것인데 이때 검색엔진은 기존 페이지 링크를 버리고 변경된 링크로 대체한다. 
+    * 302의 경우 일시적으로 리디렉션된 것이므로 기존 페이지 링크를 버리지 않고 그대로 유지시키는 판단. 즉, 302는 리다이렉트 하기 전 주소가 다시 사용될 때 사용한다.
+  * 또한, 301, 302 같은 경우는 HTTP 메서드를 GET으로 바꾸고, body 없이 전송한다. 
+  * 일시적인 리다이렉션(302, 303)을 사용하면, POST -> GET 요청으로 변경하여 페이지 새로고침 등의 동작으로 POST 요청 중복 처리되는 것을 방지할 수 있다.
+  
+- 요구사항 구현 : 회원가입을 완료하면 `/index.html` 페이지 이동 
   * HTTP의 302 코드를 사용해서 구현하는데, HTTP Reponse Status Code 302 Found 는 헤더에 지정된 URL로 일시적으로 이동시키는 Redirection 이다.
   Server Reponse 방법은 아래와 같다.
     ```
