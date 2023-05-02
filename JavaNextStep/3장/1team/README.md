@@ -679,3 +679,30 @@ test {
     useJUnitPlatform()
 }
 ```
+
+* * * 
+### **코드 관련 추가 사항 정리**
+
+- `dos.flush()` : 버퍼링된 데이터를 클라이언트에 전송하기 위해 사용
+  - 기본 출력 스트림에 쓰기 대기 중인 버퍼링된 데이터를 플러시   
+
+- `POST /user/create HTTP/1.1` 과 `HTTP/1.1 200 OK` 의 차이점
+  - 구조가 달라서 궁금하였음.
+  - `POST /user/create HTTP/1.1`은 Request 관련 요청 라인이고 일반적으로 클라이언트에서 서버로 보내는 HTTP Request
+  - `HTTP/1.1 200 OK`은 응답 요청. 일반적으로 서버에서 클라이언트로 보내는 HTTP Response
+   
+- `Content-Length` 를 쓰는 이유? : 엔터티의 길이 (Content-Length) 
+  - Content-Length 헤더는 메시지의 엔터티 본문의 크기를 바이트 단위로 나타낸다.
+  - Content-Length 헤더는 메시지를 청크 인코딩으로 전송하지 않는 이상, 엔터티 본문을 포함한 메시지에서는 필수적으로 있어야 합니다.
+  - 잘림 검출 기능
+    - Content Length가 없다면 클라이언트는 커넥션이 정상적으로 닫힌것인지 메시지 전송중에 충돌이 발생한 것인지 구분하기 어렵다. 
+따라서 이러한 메시지 잘림 검출을 하기 위해 Content-Length를 필요로 하게 된다.
+잘린 메시지 캐시 위험을 줄이기 위해 캐싱 프락시 서버는 Content-Length 헤더를 갖고 있지 않은 HTTP 본문은 보통 캐시하지 않는다고 한다. (HTTP 엔터티와 인코딩 관련 : https://simple-ing.tistory.com/20)
+  - HTTP/1.1 부터 추가된 것    
+   - Content-Length 헤더는 메시지의 엔터티 본문의 크기를 바이트 단위로 나타낸다. 어떻게 인코딩되었든 상관없이 크기를 표현할 수 있다. ( 단, 압축될 경우 압축된 후의 크기이다. )
+Content-Length 헤더는, 메시지의 청크 인코딩을 전송하지 않는 이상, 엔터티 본문을 포함한 메시지에서는 반드시 있어야 한다. Content-Length 는 서버 충돌로 인해 메시지가 잘렸는지 감지하고자 할 때와 지속 커넥션을 공유하는 메시지를 올바르게 분할하고자 할 때 필요하다.
+
+- `byte[] body = Files.readAllBytes(new File("./webapp" + tokens[1]).toPath());`
+  - 해당 경로의 파일을 toPath로 Path 객체로 변환한다.
+  - 해당 경로의 파일을 읽어(readAllBytes) body 변수에 바이트 배열로 저장함
+  - responsebody에 HTTP 응답을 실어서 해당 파일 내용을 웹브라우저가 렌더링 할 수 있게 해줌
