@@ -27,7 +27,7 @@
     ```
     sudo vi /etc/profile
     ```
-    `i` 눌러서 수정모드, 저장은 ESC 후, `:wp` 도중에 종료하고싶으면 `:q!`
+    `i` 눌러서 수정모드, 저장은 ESC 후, `:wq` 도중에 종료하고싶으면 `:q!`
 
     ```
     export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
@@ -84,7 +84,7 @@
         ls
         cd web-application-server
 
-        mvc clean package
+        mvn clean package
 
         java -cp target/classes:target/dependency/* webserver.WebServer 8080 &
         (포트는 인바운드로 열었던 포트를 해야함)
