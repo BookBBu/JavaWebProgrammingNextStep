@@ -34,7 +34,7 @@
 
 
     
-3. clone한 프로젝트를 로컬 폴더에 Import한다.
+3. clone한 프로젝트를 로컬 폴더에 Import한다.<br>
 	<img width="520" alt="3" src="https://user-images.githubusercontent.com/49806698/235552059-653e66ab-15c3-44c5-b38d-6f6e2ef362b5.png">
     
 
