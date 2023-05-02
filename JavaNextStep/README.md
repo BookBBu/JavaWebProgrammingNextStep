@@ -1,55 +1,74 @@
+<h1 align="center">Hi 👋, I'm sorryday </h1>
+<h3 align="center">A passionate beginner Java and Back-End (and Android) developer from Republic of Korea</h3>
+
+- 🔭 I’m currently working on my **![Java](https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=java&logoColor=white)   ![Spring](https://img.shields.io/badge/spring-%236DB33F.svg?style=for-the-badge&logo=spring&logoColor=white)   ![Android Studio](https://img.shields.io/badge/Android%20Studio-3DDC84.svg?style=for-the-badge&logo=android-studio&logoColor=white)**
+
+- 👯 I will be a growing developer.
+
+- 📫 How to reach me: **rptqoxmf1@gmail.com OR rptqoxmf5886@naver.com**
+
+<h3 align="center">Connect with me:</h3>
+<div align="center">
+
+[![image](https://img.shields.io/badge/Instagram-E4405F?style=for-the-badge&logo=instagram&logoColor=white)](https://www.instagram.com/ssh_seunghyeon/?hl=ko)
+
+</div>
+
+
+-------------------------------------------------------------
 # 3장: 개발 환경 구축 및 웹 서버 십습 요구사항
 
 ## 3-0. 서론
 
 - 3장의 전반적인 구성 내용
-    1. 질문/답변 게시판에 대한 서비스 요구사항과 실습 요구사항 제시
-    2. Web Client와 서버간의 데이터 통신을 위한 HTTP Web Application Server 구축
-    3. Local에서 Web Application 개발
-    4. 버전 관리 시스템에서 소스 코드 관리
-    5. 개발한 Application을 원격 서버에 배포
-
+    1. 질문/답변 게시판에 대한 서비스 요구사항과 실습 요구사항 제시<br>
+    2. Web Client와 서버간의 데이터 통신을 위한 HTTP Web Application Server 구축<br>
+    3. Local에서 Web Application 개발<br>
+    4. 버전 관리 시스템에서 소스 코드 관리<br>
+    5. 개발한 Application을 원격 서버에 배포<br>
+	<br>
+	
 ## 3-1. 서비스 요구 사항
 
 - 질문/답변 게시판의 요구사항을 사용자의 흐름 순으로 살펴보자
-    1. 질문/답변 게시판
-        1. Header에서 회원가입, 로그인, 로그아웃, 개인정보 수정이 가능
-    2. 회원가입 클릭 시 회원 가입 페이지로 이동
-    3. 로그인 버튼을 누르면 로그인 페이지로 이동 및 로그인 가능
-    4. 질문 목록 화면에서 질문 클릭 시 각 질문의 상세보기 화면으로 이동
-        1. 답변 추가 및 수정/삭제 가능
+    1. 질문/답변 게시판<br>
+        1. Header에서 회원가입, 로그인, 로그아웃, 개인정보 수정이 가능<br>
+    2. 회원가입 클릭 시 회원 가입 페이지로 이동<br>
+    3. 로그인 버튼을 누르면 로그인 페이지로 이동 및 로그인 가능<br>
+    4. 질문 목록 화면에서 질문 클릭 시 각 질문의 상세보기 화면으로 이동<br>
+        1. 답변 추가 및 수정/삭제 가능<br>
         
-
+	<br>
 ## 3-2. 로컬 개발 환경 구축
 
 - 기본적으로 Java 8 Version과 이클립스를 이용하여 구성된다. (물론 변경도 가능)
 - 이클립스의 Git Perspective를 이용한 방법
 1. https://github.com/slipp/web-application-server 에서 Project를 자신의 Repository에 Fork한다.
     
-<img width="1663" alt="1" src="https://user-images.githubusercontent.com/49806698/235552016-ecd2e486-6035-459a-997f-859e08c55382.png">
-
+   <img width="1663" alt="1" src="https://user-images.githubusercontent.com/49806698/235552016-ecd2e486-6035-459a-997f-859e08c55382.png">
+	<br>
     
 2. 이클립스의 Git Perspective에서 Fork한 Repository를 Git clone 한다.
     <img width="520" alt="2" src="https://user-images.githubusercontent.com/49806698/235552036-a099c762-6dbe-4aad-9aee-dce3153435f0.png">
 
 
-    
+   
 3. clone한 프로젝트를 로컬 폴더에 Import한다.<br>
 	<img width="520" alt="3" src="https://user-images.githubusercontent.com/49806698/235552059-653e66ab-15c3-44c5-b38d-6f6e2ef362b5.png">
     
 
 
-    
+    <br>
 4. Import한 프로젝트에서 **WebServer.java**를 Java Application으로 실행한다.
     <img width="1035" alt="4" src="https://user-images.githubusercontent.com/49806698/235552065-03067ae8-7ea6-4eec-bff3-7df27e16cbee.png">
 
    
-    
+    <br>
 5. “Hello world”가 잘 출력되는지 확인
     <img width="809" alt="5" src="https://user-images.githubusercontent.com/49806698/235552078-f9dc6692-45a9-404e-8d81-72d9bd0800df.png">
 
  
-    
+    <br>
 
 - 터미널에서 Git Clone한 후 Import 하는 방법
     - [https://www.youtube.com/watch?v=5hjYe_PggJI](https://www.youtube.com/watch?v=5hjYe_PggJI)
@@ -76,62 +95,60 @@
     ![7](https://user-images.githubusercontent.com/49806698/235552102-ad4e8d1f-85c1-42bf-9b09-50704b767fc5.png)
 
     
-    1. 인스턴스 시작을 누르면 Amazon Machine Image(AMI) 및 인스턴스 유형을 선택할 수 있는 페이지로 넘어간다. 이 부분에서 프리 티어의 Ubuntu 22.04 LTS 버전을 선택한다.
-    프리 티어를 사용한다면 인스턴스의 유형은 **t2.mircro**로 고정이다.
-    
-   <img width="800" alt="8" src="https://user-images.githubusercontent.com/49806698/235552127-6f2d2b8f-4e74-4d15-850b-cb500be2c42f.png">
-<img width="793" alt="9" src="https://user-images.githubusercontent.com/49806698/235552130-c1819db4-6a47-441e-94b3-9e07f899b6e2.png">
-<img width="594" alt="10" src="https://user-images.githubusercontent.com/49806698/235552131-9ab55222-fc19-428e-a52c-59cc1d663038.png">
+    2. 인스턴스 시작을 누르면 Amazon Machine Image(AMI) 및 인스턴스 유형을 선택할 수 있는 페이지로 넘어간다. 이 부분에서 프리 티어의 Ubuntu 22.04 LTS 버전을 선택한다.
+    프리 티어를 사용한다면 인스턴스의 유형은 **t2.mircro**로 고정이다. <br>
+    <img width="800" alt="8" src="https://user-images.githubusercontent.com/49806698/235553459-a5f6ebd5-4b02-414e-a59a-56534318df00.png"><br>
+    <img width="800" alt="asv" src="https://user-images.githubusercontent.com/49806698/235553626-e0d9958d-eb86-40ac-993a-5f02e1e2bc04.png"><br>
+    <img width="793" alt="9" src="https://user-images.githubusercontent.com/49806698/235553717-634b5759-e3c8-4f09-8385-addba151a09a.png"><br>
 
-    
-    1. **키 페어**는 EC2 서버에 SSH 접속을 위해 필수적인 부분이다.
-    **새 키페어 생성**”을 통해 키 페어를 생성 하면 `[key이름].pem` 파일이 다운로드 되는데 이 파일의 위치에 가서 ssh 명령을 수행하면 된다.
-    
-    단!! 한 번 다운받은 후에는 재 다운로드가 불가능하기 때문에 백업이 필요하다.
+
+    3. 키 페어는 EC2 서버에 SSH 접속을 위해 필수적인 부분이다.
+    **새 키페어 생성**”을 통해 키 페어를 생성 하면 `[key이름].pem` 파일이 다운로드 되는데 이 파일의 위치에 가서 ssh 명령을 수행하면 된다. 단!! 한 번 다운받은 후에는 재 다운로드가 불가능하기 때문에 백업이 필요하다.<br>
         
-      ![11](https://user-images.githubusercontent.com/49806698/235552155-50801f43-479a-44e0-a8ac-c34d5ea4eff6.png)
+     <img width="594" alt="10" src="https://user-images.githubusercontent.com/49806698/235553752-94f4c18e-5eb6-4bda-b9a6-5eb897891e7c.png"><br>
+
 
         
-    2. 네트워크는 보안 그룹을 따로 생성하도록 하였으며 SSH 트래픽의 경우 **위치 무관**으로 열어놓았다. 보안 상 특정 ip에서 접속하도록 설정 해야 하지만 현재는 스터디를 위한 것이므로 어느 IP에서도 접속이 가능하도록 하였다.
-    
-    스토리지 구성의 경우 프리 티어는 최대 30GB 범용 SSD를 사용할 수 있어서 29GB를 할당하였다.
-        
-        <img width="1479" alt="12" src="https://user-images.githubusercontent.com/49806698/235552162-47e95ad4-b52a-45bf-845a-ba8c00f603b5.png">
+    4. 네트워크는 보안 그룹을 따로 생성하도록 하였으며 SSH 트래픽의 경우 **위치 무관**으로 열어놓았다. 보안 상 특정 ip에서 접속하도록 설정 해야 하지만 현재는 스터디를 위한 것이므로 어느 IP에서도 접속이 가능하도록 하였다. 스토리지 구성의 경우 프리 티어는 최대 30GB 범용 SSD를 사용할 수 있어서 29GB를 할당하였다.<br>
+        ![11](https://user-images.githubusercontent.com/49806698/235553782-fa8387f6-6307-4738-bc24-9171f285fc70.png)<br>
+
+       
 
         
-    3. 설정이 끝난 후 인스턴스 시작을 누르면 인스턴스 생성 완료 메시지가 나오며, 인스턴스 홈으로 가 보면 생성한 인스턴스를 볼 수 있다.
-        
-       ![13](https://user-images.githubusercontent.com/49806698/235552173-99d9cec2-be12-4b64-b06a-39b139c780ee.png)
+    5. 설정이 끝난 후 인스턴스 시작을 누르면 인스턴스 생성 완료 메시지가 나오며, 인스턴스 홈으로 가 보면 생성한 인스턴스를 볼 수 있다.<br>
+        <img width="1479" alt="12" src="https://user-images.githubusercontent.com/49806698/235553851-39334b5a-5c82-4464-a346-6abef61c1c81.png"><br>
+
+      
 
         
-    4. AWS EC2 인스턴스는 서버를 중지하고 다시 실행하면 Public IP가 변경되기 때문에 Reboot을 해도 사용할 수 있는 IP가 필요하다.
+    6. AWS EC2 인스턴스는 서버를 중지하고 다시 실행하면 Public IP가 변경되기 때문에 Reboot을 해도 사용할 수 있는 IP가 필요하다.
         
         탄력적 IP는 만들어놓고 사용하지 않더라도 과금이 되기 때문에 필요한 만큼만 생성하자!
-        메뉴의 “탄력적 IP”를 클릭하여 “탄력적 IP 주소 할당”을 선택한다.
+        메뉴의 “탄력적 IP”를 클릭하여 “탄력적 IP 주소 할당”을 선택한다.<br>
         
-       <img width="870" alt="14" src="https://user-images.githubusercontent.com/49806698/235552180-de1a36ee-8f4c-4cb7-9b29-effbd227bbfc.png">
+	![13](https://user-images.githubusercontent.com/49806698/235553880-3334847a-baa8-4b1a-bedd-df98d8a6c255.png)<br>
 
         
-    5. 기본 Default로 할당을 해주면 된다.
-        
-       <img width="310" alt="15" src="https://user-images.githubusercontent.com/49806698/235552191-999a2ed6-fbd8-4bfd-9820-472662b2d369.png">
+    7. 기본 Default로 할당을 해주면 된다.<br>
+        <img width="870" alt="14" src="https://user-images.githubusercontent.com/49806698/235553895-8e6cc865-8373-4e18-876a-43916ff66f0c.png"><br>
+
 
         
-    6. 그 후 생성한 탄력적 IP와 생성한 EC2 인스턴스를 연결하면 인스턴스의 IP가 탄력적 IP로 고정 됨을 알 수 있다.
+    8. 그 후 생성한 탄력적 IP와 생성한 EC2 인스턴스를 연결하면 인스턴스의 IP가 탄력적 IP로 고정 됨을 알 수 있다.<br>
         
-       ![16](https://user-images.githubusercontent.com/49806698/235552199-855d6cdd-022d-4723-93dc-e06d3c0c1e7c.png)
+    <img width="310" alt="15" src="https://user-images.githubusercontent.com/49806698/235553912-924d5dbd-0f2f-4968-99b4-f7b3ed605c25.png"><br>
 
         
-    7. 이제 인스턴스를 연결해보자.
-    선택한 인스턴스에서 오른쪽 마우스 클릭 시 인스턴스 연결 정보를 알려주긴 하지만 매번 이런식으로 연결하면 매우 불편하다. 이때 **호스트를 등록하는 방법**을 ****사용하면 간단하게 접속할 수 있다.
+    9. 이제 인스턴스를 연결해보자.
+    선택한 인스턴스에서 오른쪽 마우스 클릭 시 인스턴스 연결 정보를 알려주긴 하지만 매번 이런식으로 연결하면 매우 불편하다. 이때 **호스트를 등록하는 방법**을 사용하면 간단하게 접속할 수 있다.<br><br>
     
-    - 우선 키 파일이 있는 폴더에 가서 터미널 실행 후 키 파일이 권한을 변경한다.
+    - 우선 키 파일이 있는 폴더에 가서 터미널 실행 후 키 파일이 권한을 변경한다.<br>
     
     ```bash
     $ chmod 400 "본인의 키 파일 이름".pem
     ```
     
-    - 그 후 키 페어 파일을 `~/.ssh/`로 복사하고(백업) 복사한 키 파일 권한을 변경한다.
+    - 그 후 키 페어 파일을 `~/.ssh/`로 복사하고(백업) 복사한 키 파일 권한을 변경한다.<br>
     
     ```bash
     $ cp "본인의 키 파일 이름".pem ~/.ssh/
@@ -140,7 +157,7 @@
     ```
     
     - 그 후 `~/.ssh/` 디렉터리에 `config` 파일을 생성해서 다음의 코드를 입력한다.
-    작성자는 이미 만들어놓은 설정 정보가 존재하여 밑에 추가를 해주었다.
+    작성자는 이미 만들어놓은 설정 정보가 존재하여 밑에 추가를 해주었다.<br>
     
     ```
     $ vi ~/.ssh/config
@@ -159,7 +176,7 @@
     $ ssh "설정한 호스트이름"
     ```
     
-    1. 마지막으로 보안그룹을 설정해주자. 우선 AWS에서 쓸 수 있는 보안 그룹은 두 가지 종류가 있다.
+    10. 마지막으로 보안그룹을 설정해주자. 우선 AWS에서 쓸 수 있는 보안 그룹은 두 가지 종류가 있다.
         - 인바운드 (Inbound): 외부 -> EC2 인스턴스 내부 허용
         - 아웃바운드 (Outbound): EC2 인스턴스 내부 -> 외부 허용
         
@@ -170,14 +187,14 @@
         
         유형을 먼저 선택하면 그에 맞게 프로토콜과 포트의 범위가 고정되며, 특정 IP나 대역을 넣으려면 “사용자 지정”으로 추가할 수 있다.
         
-        우선 가장 많이 사용하는 “SSH”, “HTTP”, “HTTPS”를 추가한다. **0.0.0.0/0**은 모든 IP의 접속을 허용한다는 얘기이다.
-            
-           ![17](https://user-images.githubusercontent.com/49806698/235552216-80b7e73b-96a8-42ba-adf5-f2f94c0320bd.png)
+        우선 가장 많이 사용하는 “SSH”, “HTTP”, “HTTPS”를 추가한다. **0.0.0.0/0**은 모든 IP의 접속을 허용한다는 얘기이다.<br>
+            ![16](https://user-images.githubusercontent.com/49806698/235554065-fc881b4b-c638-4965-8fc4-bac395eca1f3.png)
+
 
             
-        - 규칙을 다 설정하고 저장했다면 인스턴스로 와서 생성한 보안그룹으로 변경하면 정상적으로 적용된다.
+        - 규칙을 다 설정하고 저장했다면 인스턴스로 와서 생성한 보안그룹으로 변경하면 정상적으로 적용된다.<br>
             
-            <img width="167" alt="18" src="https://user-images.githubusercontent.com/49806698/235552229-20a5d7ce-f669-4046-80c7-72211fa4f57d.png">
+	![17](https://user-images.githubusercontent.com/49806698/235554081-d69f4464-80a6-47fc-915f-f7d5e70a2cd2.png)
 
             
     
@@ -214,8 +231,10 @@ source .bash_profile
 (env: 현재 지정되어 있는 환경 변수들을 출력하거나, 새로운 환경 변수를 설정하고 적용된 내용을 출력하는 명령어)
 env
 ```
+<br>
+<img width="167" alt="18" src="https://user-images.githubusercontent.com/49806698/235554217-98547f8e-98e9-4c72-95ea-c2b162eb659c.png"><br>
 
-![19](https://user-images.githubusercontent.com/49806698/235552264-a9e0e377-05a5-4fb6-ad4f-e468a79fa093.png)
+
 
 
 ### 3-3-3. JDK, Maven 설치
@@ -333,9 +352,10 @@ git clone [clone할 url]
 ### 3-4-1. 요구사항 (1) - index.html 응답하기
 
 - WebServer.java를 실행하고 브라우저에서 [localhost:8080/index.html](http://localhost:8080/index.html을) 로 접속해보자
-- 접속하고 개발자 도구 → Network → localhost의 Header를 보면 다음과 같은  Request Header 메시지를 볼 수 있다.
+- 접속하고 개발자 도구 → Network → localhost의 Header를 보면 다음과 같은  Request Header 메시지를 볼 수 있다.<br>
     
-    <img width="824" alt="20" src="https://user-images.githubusercontent.com/49806698/235552299-a7a8803a-d61c-4836-994c-2b139c246794.png">
+   ![19](https://user-images.githubusercontent.com/49806698/235554296-abaec389-0cc9-4dd3-b11b-adb07c234de0.png)<br>
+
 
     
 - 이 요청 값은 InputStream을 통해 들어오고 이를 BufferdReader를 통해 값을 출력할 수 있다.
@@ -373,9 +393,10 @@ responseBody(dos, body);
 
 ### 3-4-2. 요구사항 (2) - GET 방식으로 회원 가입하기
 
-- 지금 상태에서 웹 서버를 띄운 상태에서 회원 가입을 누르면 아래와 같은 HTTP Header 요청을 볼 수 있다.
-    
-   ![21](https://user-images.githubusercontent.com/49806698/235552339-2525d20c-81a8-4432-8e69-41faddbeba7e.png)
+- 지금 상태에서 웹 서버를 띄운 상태에서 회원 가입을 누르면 아래와 같은 HTTP Header 요청을 볼 수 있다.<br>
+<img width="824" alt="20" src="https://user-images.githubusercontent.com/49806698/235554329-2b434ef0-85ec-4f6e-8a48-92142d30e7c0.png"><br>
+
+  
 
     
 - 이 요청에서 알 수 있는건 **GET 방식으로 요청이 온다는 점**과 경로가 **/user/create?** 로 시작한다는 점이다.
@@ -405,15 +426,17 @@ if (url.startsWith("/user/create")) {
 	log.debug("User : {}", user);
 ```
 
-- 이 실습까지는 회원가입 처리 후 응답 메세지를 보내지 않았기 때문에 브라우저는 “응답 없음”을 띄울 것이다.
+- 이 실습까지는 회원가입 처리 후 응답 메세지를 보내지 않았기 때문에 브라우저는 “응답 없음”을 띄울 것이다.<br>
+![21](https://user-images.githubusercontent.com/49806698/235554370-2b048b0e-db2d-4f77-ab13-a64af84786af.png)<br>
 
-![22](https://user-images.githubusercontent.com/49806698/235552355-52a5de3a-4b1d-4ddc-8ecb-410d574dd5b2.png)
+
 
 
 - GET 방식은 사용자가 입력한 데이터가 URL에 표시 되기 때문에 보안적인 측면에서 취약하다.
-- 또 브라우저의 정책마다 다르지만 크롬 브라우저의 경우 2MB의 길이로 제한(주소창 표시는 32KB)을 둔다고 한다.
+- 또 브라우저의 정책마다 다르지만 크롬 브라우저의 경우 2MB의 길이로 제한(주소창 표시는 32KB)을 둔다고 한다.<br>
     
-    ![스크린샷 2023-05-02 오전 12.19.48.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/a50d3ccc-a199-4003-922a-6baa9cddef94/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2023-05-02_%E1%84%8B%E1%85%A9%E1%84%8C%E1%85%A5%E1%86%AB_12.19.48.png)
+    ![22](https://user-images.githubusercontent.com/49806698/235554401-e72515a1-83b5-4b01-aa6f-a846c43101cd.png)<br>
+
     
     <출처 : [Chromium Docs](https://chromium.googlesource.com/chromium/src/+/main/docs/security/url_display_guidelines/url_display_guidelines.md#URL-Length) >
     
@@ -462,9 +485,13 @@ if (url.startsWith("/user/create")) {
 	}
 ```
 
-![스크린샷 2023-05-02 오전 12.34.39.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/54b0950d-a375-4fae-aeb4-5a7ddd8d8f41/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2023-05-02_%E1%84%8B%E1%85%A9%E1%84%8C%E1%85%A5%E1%86%AB_12.34.39.png)
 
-![스크린샷 2023-05-02 오전 12.34.51.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/44d48752-b68b-4d07-b193-d3059ef2441a/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2023-05-02_%E1%84%8B%E1%85%A9%E1%84%8C%E1%85%A5%E1%86%AB_12.34.51.png)
+![23](https://user-images.githubusercontent.com/49806698/235554834-c4cde14b-c8cc-4ccc-9a5f-14d7ed538001.png)
+
+![24](https://user-images.githubusercontent.com/49806698/235554840-9cf7c277-c1b0-48b6-9a0b-6e7f6edcbb26.png)
+
+<br>
+
 
 - HTML에서는 기본으로 GET과 POST만을 지원한다.
     - GET
@@ -495,9 +522,10 @@ responseBody(dos, body);
 ```
 
 - 그러나 이 방식을 사용하면 ****************************브라우저가 이전 요청 정보를 유지 하고 있기 때문에**************************** 회원 가입 요청이 다시 실행된다.
-- url을 보면 index.html로 이동했음에도 /user/create로 되어 있는 것을 알 수 있다.
+- url을 보면 index.html로 이동했음에도 /user/create로 되어 있는 것을 알 수 있다.<br>
     
-    ![스크린샷 2023-05-02 오전 1.05.10.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/0b413df1-132a-4b4f-bbd1-791a226b6484/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2023-05-02_%E1%84%8B%E1%85%A9%E1%84%8C%E1%85%A5%E1%86%AB_1.05.10.png)
+   ![25](https://user-images.githubusercontent.com/49806698/235554494-9305be02-217f-40f8-a751-2e3560c5fb42.png)<br>
+
     
 - 이러면 데이터의 중복이 발생하므로 회원 가입을 처리하는 /user/create 요청과 index.html을 보여주는 요청을 분리한 후 HTTP의 302 상태 코드를 활용하여 해결할 수 있다.
 - /index.html로 이동하도록 응답을 보낼 때 응답 헤더의 Location으로 다음과 같은 응답을 보내면 클라이언트는 상태 코드를 확인 한 후 302라면 Location의 값으로 서버에 재요청을 전송한다.
@@ -522,7 +550,8 @@ private void response302Header(DataOutputStream dos, String url) {
 }
 ```
 
-![스크린샷 2023-05-02 오전 1.17.25.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/bec5f583-0b9f-4e21-8c7a-aaf905b0c02b/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2023-05-02_%E1%84%8B%E1%85%A9%E1%84%8C%E1%85%A5%E1%86%AB_1.17.25.png)
+![26](https://user-images.githubusercontent.com/49806698/235554563-5e82eef2-b40a-45d7-8dbf-c2babb9c892d.png)
+<br>
 
 - 상태 코드 정리
     - 2XX  : 성공. 클라이언트가 요청한 동작을 수신하여 이해했고 승낙햇으며, 성공적으로 처리
@@ -595,7 +624,8 @@ private void responseResource(OutputStream out, String url) throws IOException{
 }
 ```
 
-![스크린샷 2023-05-02 오전 1.45.25.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/34f87ed5-45fb-4704-adac-1ca37b48ab89/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2023-05-02_%E1%84%8B%E1%85%A9%E1%84%8C%E1%85%A5%E1%86%AB_1.45.25.png)
+![27](https://user-images.githubusercontent.com/49806698/235554603-ff2e9135-2e92-4506-9b31-e0d6df804b4d.png)
+<br>
 
 ### 3-4-6. 요구사항 (6) - 사용자 목록 출력
 
@@ -661,9 +691,10 @@ else if ("/user/list".equals(url)) {
 
 ### 3-4-6. 요구사항 (7) - CSS 지원하기
 
-- 이클립스 log Message를 보면 CSS 파일을 정상적으로 요청함을 알 수 있다.
+- 이클립스 log Message를 보면 CSS 파일을 정상적으로 요청함을 알 수 있다.<br>
     
-    ![스크린샷 2023-05-02 오전 2.16.39.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/fdfba573-a0e0-48b9-a353-2cb16cbd3348/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2023-05-02_%E1%84%8B%E1%85%A9%E1%84%8C%E1%85%A5%E1%86%AB_2.16.39.png)
+   ![28](https://user-images.githubusercontent.com/49806698/235554621-bfe656fe-a5dd-4ddb-9ef2-8e9ea1f0bbf2.png)
+
     
 - 하지만 CSS 적용이 안되는 것을 알 수 있는데, 이는 **모든 컨텐츠의 타입을 text/html로 보내기 때문**이다.
 - 브라우저는 응답을 받은 후 Content-Type 헤더 값을 통해 Body에 포함되어 있는 컨텐츠가 어떤 것인지 판단한다.
