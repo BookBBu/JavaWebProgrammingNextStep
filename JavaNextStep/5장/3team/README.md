@@ -128,7 +128,9 @@ public class HttpResponseTest {
 - 클라이언트 요청에 따른 로직 처리(회원가입, 로그인 등) 
 - 로직 처리 완료 후 클라이언트에 대한 응답 헤더와 본문 데이터 처리 작업 
 을 수행한다. 
-클래스 하나가 너무 많은 일을 하기 때문에 **`한 객체가 한 가지 책임을 가지도록`** 리팩토링 진행 할 것이다.
+클래스 하나가 너무 많은 일을 하기 때문에 
+
+**`⭐한 객체가 한 가지 책임⭐`** 을 가지도록 리팩토링 진행 할 것이다.
 
 먼저, 클라이언트 요청 데이터와 응답 데이터 처리를 별도의 클래스로 분리한다.
 
@@ -140,21 +142,93 @@ public class HttpResponseTest {
 : 4가지 종류의 get()메소드 ```getMethod(), getPath(), getHeader(), getParameter()``` 를 통해 값에 접근할 수 있도록한다. (코드: p.154-156 참고)
     
 하지만, 리팩토링 후에도 여전히 요청 라인(request line)을 처리하는 메소드(processRequestLine())의 복잡도가 높아 보인다.
-```
+
+(해결방법)
 1. private 접근 제어자인 메소드를 default 접근 제어자로 수정하고 메소드 처리 결과를 반환하도록 수정
-2. 메소드 구현 로직을 새로운 클래스로 분리 (V)
-```
-    
+2. **메소드 구현 로직을 새로운 클래스로 분리 (V)**
+
+
+[ ❓Private 메소드를 테스트하는 방법과 이를 지양해야 하는 이유 ]
+1. Private 메소드를 테스트하는 방법
+- 방법 1 : 테스트하고 싶은 메서드의 접근 제어자 범위(package-private, protected)를 바꾸어 테스트한다.
+- 방법 2: 자바의 리플렉션을 활용하여 강제적으로 private메서드를 호출한다. 
+	- 2.1. PowerMock의 Whitebox.invokeMethod
+	- 2.2. Junit Addons의 PrivateAccessor 
+	- 2.3. 직접 리플렉션 사용
+2. Private 메소드 테스트를 지양해야 하는 이유
+	- private 메소드에 대한 테스트는 깨지 쉬운 테스트가 된다. 
+	- private 메소드는 내부를 감추어 클라이언트와의 결합도를 낮춰주는데, 클라이언트인 테스트 클래스가 내부 메소드를 알고 있으니 결합도가 높아진다. 그리고 이는 유지보수할 때 테스트에 대한 비용을 증가시키는 요인이 될 수 있는데, 메소드 이름이나 파라미터 등을 변경할 때 실패하게 된다. 또한 리플렉션 자체 역시 컴파일 에러를 유발하지 못하므로 최대한 사용을 자제해야 한다. 
+- [private 메서드도 테스트를 해야 할까? (private 메서드 테스트 하고 싶을 때...)](https://kukim.tistory.com/84?category=908201)
+- [[Java] Private 메소드를 테스트하는 방법과 이를 지양해야 하는 이유](https://mangkyu.tistory.com/235)
+
+
 🛠️방법2에 따라서 **```RequestLine```** 라는 새로운 클래스를 추가하여 리팩토링!
-    결과) 요청라인을 처리하는 책임을 분리했지만 **HttpRequest의 메소드 원형은 바뀌지 않았다.** 따라서 기존의 HttpRequestTest도 변경없이 테스트할 수 있다.
-
+- 결과) 요청라인을 처리하는 책임을 분리했지만 **HttpRequest의 메소드 원형은 바뀌지 않았다.** 따라서 기존의 HttpRequestTest도 변경없이 테스트할 수 있다.
+```java
+public class RequestLine {
+	private static final Logger log = LoggerFactory.getLogger(RequestLine.class);
+	
+	private HttpMethod method;
+	private String path;
+	private Map<String, String> params = new HashMap<>();
+	
+	public RequestLine(String requestLine) {
+		log.debug("request line : {}", requestLine);
+		String[] tokens = requestLine.split(" ");
+		
+		if (tokens.length != 3) {
+			throw new IllegalArgumentException(requestLine + "이 형식에 맞지 않습니다.");
+		}
+		
+		method = HttpMethod.valueOf(tokens[0]);
+		
+		if (method.isPost()) {
+			path = tokens[1];
+			return;
+		}
+		
+		int index = tokens[1].indexOf("?");
+		if (index == -1) {
+			path = tokens[1];
+		} else {
+			path = tokens[1].substring(0, index);
+			params = HttpRequestUtils.parseQueryString(tokens[1].substring(index+1));
+		}
+	}
+	
+	public HttpMethod getMethod() {
+		return method;
+	}
+	
+	public boolean isPost() {
+		return method.isPost();
+	}
+	
+	public String getPath() {
+		return path;
+	}
+	
+	public Map<String, String> getParams() {
+		return params;
+	}
+}
+```
 🛠️추가 리팩토링) **```HttpMethod```** 라는 이름의 enum으로 추가하는 리팩토링!
-    상수 값이 서로 연관되어 있는 경우, 자바의 ```enum```을 쓰기 적합하다. 따라서 String으로 구현되어 있던 method 필드(GET, POST)를 HttpMethod의 enum을 사용하도록 변경한다. => ```HttpRequest```, ```RequestLineTest```, ```HttpRequestTest```에서도 HttpMethod를 사용하도록 변경
-
+- 상수 값이 서로 연관되어 있는 경우, 자바의 ```enum```을 쓰기 적합하다. 따라서 String으로 구현되어 있던 method 필드(GET, POST)를 HttpMethod의 enum을 사용하도록 변경한다. => ```HttpRequest```, ```RequestLineTest```, ```HttpRequestTest```에서도 HttpMethod를 사용하도록 변경
+```java
+public enum HttpMethod {
+	GET,
+	POST;
+	
+	public boolean isPost() {
+		return this == POST;
+	}
+}
+```
 🛠️ **```RequestHandler```** 에서 ```HttpRequest```를 사용하도록 리팩토링!
-    클라이언트 요청 데이터에 대한 처리를 모두 ```HttpRequest```로 위임했기 때문에 ```RequestHandler```는 요청 데이터를 처리하는 모든 로직을 제거할 수 있었다.
+- 클라이언트 요청 데이터에 대한 처리를 모두 ```HttpRequest```로 위임했기 때문에 ```RequestHandler```는 요청 데이터를 처리하는 모든 로직을 제거할 수 있었다.
 
-- **테스트 코드를 기반으로 개발할 경우 효과**
+**<테스트 코드를 기반으로 개발할 경우 효과>**
 ```
 1. 클래스에 버그가 있는지 빨리 찾아 구현할 수 있다.
 2. 디버깅을 좀 더 쉽고 빠르게 할 수 있으며, 개발 생산성을 높여준다.
@@ -172,10 +246,48 @@ public class HttpResponseTest {
 - HttpResponse 테스트: 2단계 힌트에서 제시한 HttpResponseTest를 실행해 생성된 파일을 통해 수동으로 테스트 가능
 
 🛠️ **```RequestHandler```** 에서 ```HttpResponse```를 사용하도록 리팩토링!
+```java
+public class RequestHandler extends Thread {
+    [...]
+
+    public RequestHandler(Socket connectionSocket) {
+        this.connection = connectionSocket;
+    }
+
+    public void run() {
+        log.debug("New Client Connect! Connected IP : {}, Port : {}", connection.getInetAddress(),connection.getPort());
+
+        try (InputStream in = connection.getInputStream(); OutputStream out = connection.getOutputStream()) {
+        	HttpRequest request = new HttpRequest(in);
+        	HttpResponse response = new HttpResponse(out);
+
+        	Controller controller = RequestMapping.getController(request.getPath());
+        	
+        	if (controller == null) {
+        		String path = getDefaultPath(request.getPath());
+        		response.forward(path);
+        	} else {
+        		controller.service(request, response);
+        	}
+        		
+        } catch (IOException e) {
+            log.error(e.getMessage());
+        }
+    }
+
+    private String getDefaultPath(String path) {
+    	if (path.equals("/")) {
+    		return "/index.html";
+    	}
+    	
+    	return path;
+    }
+}
+```
 
 ### 5.2.3 다형성을 활용해 클라이언트 요청 URL에 대한 분기 처리를 제거한다.
-🛠️ RequestHandler의 run() 메소드의 복잡도를 더 낮추기 위해 각 분기문 구현을 별도의 메소드로 분리하는 리팩토링
-    결과) 메소드 원형이 같기 때문에 자바의 인터페이스로 추출하는 것이 가능 => Controller 인터페이스 추가
+🛠️ RequestHandler의 run() 메소드의 복잡도를 더 낮추기 위해 **각 분기문 구현을 별도의 메소드로 분리** 하는 리팩토링
+- 결과) 메소드 원형이 같기 때문에 자바의 인터페이스로 추출하는 것이 가능 => Controller 인터페이스 추가
 ```java
 import http.HttpRequest;
 import http.HttpResponse;
@@ -316,7 +428,7 @@ public class ListUserController extends AbstractController {
     - 서블릿 컨테이너는 ```멀티스레드```로 동작 => 그러면 새로운 스레드가 생성될 때마다 새로운 서블릿 인스턴스를 생성할까? no. 서블릿 컨테이너가 시작할 때 한번 생성되면 모든 스레드가 같은 인스턴스를 재사용한다. 즉, ```멀티스레드가 하나의 인스턴스를 공유```한다.
 
 ## 5.4 추가 학습 자료
-### 5.4.1 객체지향 설계와 개발
+### 5.4.1 📖 객체지향 설계와 개발 
 - "객체지향의 사실과 오해"(조영호 저, 위키북스/2015)
 - "개발자가 반드시 정복해야 할 객체지향과 디자인 패턴"(최범균 저, 인투북스/2013)
 
@@ -328,3 +440,4 @@ public class ListUserController extends AbstractController {
 JSP와 템플릿 엔진의 역할은 같다. 최근 동적으로 HTML을 생성하기 위해 JSP를 사용하는 대신 ```템플릿 엔진```을 사용한다.
 
 → 모바일과 같은 다양한 기기의 등장으로 웹 백엔드는 JSON/XML과 같은 데이터만 제공하고, 동적인 웹 UI는 클라이언트가 담당하는 방향으로 변화
+- [[Web] 템플릿 엔진, JSP, Thymeleaf란? 서버 사이드 템플릿 엔진 vs 클라이언트 사이드 템플릿 엔진](https://code-lab1.tistory.com/211)
