@@ -8,11 +8,17 @@
 
 서블릿이 HTTP지원과 관련해 많은 부분을 제공하고 있지만 서블릿만으로는 웹 애플리케이션을 빠르게 개발하는데 한계가 있다.
 
-왜? 무슨 단점 ?
+**서블릿과 JSP의 한계**
+
+- 서블릿으로 개발할 때는 View화면을 위한 HTML과 자바코드가 하나의 코드에 쓰여서 지저분하고 복잡하다.
+- 하나의 서블릿이나 JSP만으로 비즈니스 로직과 뷰 렌더링까지 모두 처리하면 하나의 코드가 너무 많으 ㄴ역할을 하게 된다.
+- 즉 비즈니스 로직의 변경이 발생해도 해당 코드를 손대야 하고, UI를 변경할 일이 있어도 비즈니스 로직이 함꼐있는 파일을 수정해야 한다.
+- 그리고 UI를 변경하는 것과 비즈니스 로직을 수정하는 일이 각각 다르게 발생할 가능성이 높고 대부분 서로에게 영향을 주지 않는다. 이렇게 변경의 라이프 사이클이 다른 부분을 하나의 코드로 관리하는 것은 유지보수에 좋지않다.
 
 이 같은 단점을 보완해 좀 더 효과적인 개발이 가능하도록 프레임워크를 만드는데 이때 거의 모든 웹 프레임워크는 MVC패턴을 기반으로 하고 있다.
 
 그래서 이 장에서는 MVC 패턴 기반으로 프레임워크를 만들면서 MVC에 대한 개념을 경험한다.
+그 전에 서블릿/JSP복습을 진행한다.
 
 ### 6.1.1 서블릿/JSP복습
 
@@ -107,7 +113,7 @@ public class ListUserServlet extends HttpServlet {
 
 Controller는 사용자 목록을 HTML을 StringBuilder를 활용해 동적으로 생성했지만 Servlet은 JSP파일로 해당 기능을 위임하였고 이로 인해 코드가 간단해 지는 결과를 보이고 있다.
 
-JSP는 Java Server Page라는 이름으로 자바 구문을 그대로 사용할 수 있다. 따라서 JKP 초창기에는 사용자 목록을 출력하기 위해 직접 사용해 구현했다.
+JSP는 Java Server Page라는 이름으로 자바 구문을 그대로 사용할 수 있다. 따라서 JSP 초창기에는 사용자 목록을 출력하기 위해 직접 사용해 구현했다.
 
 ```java
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -130,7 +136,7 @@ for(User user : users){
 %>
 ```
 
-JSP에서는 스크립틀릿이라고 하는 <% %>내에 자바 구문을 그대로 사용할 수 있게 되었다.
+JSP에서는 스크립틀릿이라고 하는 데 <% %>내에 자바 구문을 그대로 사용하는 것을 의미한다.
 
 그러나 웹 애플리케이션 요구사항의 복잡도가 증가하면서 JSP를 유지보수하기 너무 힘들어졌다.
 이를 극복하기 위해 등장한 기술이 JSTL과 EL이다.
@@ -158,7 +164,7 @@ JSP에서는 스크립틀릿이라고 하는 <% %>내에 자바 구문을 그대
 
 ---
 
-## 해당 실습 코드는 책에서 설명하는 github에서 제공
+## 해당 서블릿/JSP 실습 코드는 책에서 설명하는 github에서 제공
 
 ### **6.1.2 개인정보수정 실습**
 
@@ -382,7 +388,9 @@ public class HttpSession {
 쿠키는 보안을 좀 더 강화하기 위해 domain, path, max-age, expires, secure 속성을 사용할 수 있다.
 
 ## 📌6.4 MVC 프레임워크 요구사항 1단계
+
 **MVC 패턴의 등장**
+
 - **JSP의 단점 발생**
 
 - 많은 애플리케이션이 웹으로 개발되고, 요구사항의 복잡도는 점점 더 증가
@@ -394,20 +402,23 @@ public class HttpSession {
 이러한 단점을 보완해 유지보수 비용을 줄이기 위해 MVC패턴 기반의 개발이 등장
 
 ## **MVC 패턴의 요청과 응답 흐름**
+
 ---
+
 클라이언트 ->(요청) 컨트롤러 ->(요청) 모델 ->(응답) 컨트롤러 ->(모델) 뷰 ->(응답) 클라이언트
 
-MVC패턴을 적용하기 전엔 JSP가 클라이언트 요청이 처음으로 진입하는 부분이었으나 
+MVC패턴을 적용하기 전엔 JSP가 클라이언트 요청이 처음으로 진입하는 부분이었으나
 
-MVC패턴을 적용한 후 컨트롤러가 처음으로 받게 된다. 
+MVC패턴을 적용한 후 컨트롤러가 처음으로 받게 된다.
 
-이렇게 MVC패턴을 적용하면 대부분의 로직은 컨트롤러와 모델이 담당하고, 
+이렇게 MVC패턴을 적용하면 대부분의 로직은 컨트롤러와 모델이 담당하고,
 
 뷰에 해당하는 JSP는 컨트롤러에서 전달한 데이터를 출력하는 로직만 포함하게 되고 이렇게 되면 JSP의 복잡도는 상당히 낮아진다.
 
 ---
 
 프레임워크를 사용하는 이유
+
 - 개발자의 역량의 차이에 따라 MVC패턴을 적용한 코드와 그렇지 않은 코드가 섞여 있을 경우 일관성이 떨어져 유지보수에 어려움이 있다.
 - 프레임워크는 이러한 차이가 있더라도 일관성 있는 코드를 구현하도록 강제하는 역할을 한다.
 - 또한 애플리케이션 개발에서 발생하는 중복 코드를 제거해 재사용성을 높임으로써 개발 속도를 빠르게도 한다. 이는 라이브러리도 동일하다.
@@ -417,16 +428,22 @@ MVC패턴을 적용한 후 컨트롤러가 처음으로 받게 된다.
 프레임워크는 특정 패턴 기반으로 개발하도록 강제하는 역할을 하고 라이브러리는 강제하는 부분이 없다.
 
 ### **6.4.1 요구사항**
+
 전에 서블릿/JSP로 구현한 기능들을 MVC패턴으로 구현하기
+
 ### **6.4.2 요구사항 분리 및 힌트**
+
 - 모든 요청을 서블릿 하나(예를 들어 DIspatcherServlet)가 받을 수 있도록 URL매핑한다.
+
 ```
 Hint
 @WebServlet(name="dispatcher", urlPatterns="/", loadOnStartup = 1)
 loadOnStartup속성이 무슨 역할을 하는지 학습해 본다.
 서블릿은 "/"로 설정함으로써 모든 요청을 하나의 서블릿으로 매핑할 수 있다.
 ```
+
 - Controller 인터페이스를 추가한다.
+
 ```java
 Hint
 public interface Controller{
@@ -434,7 +451,9 @@ public interface Controller{
 }
 execute() 메소드의 반환 값이 String이라는 것을 눈여겨 보자.
 ```
+
 - 서블릿으로 구현되어 있는 회원관리 기능을 앞 단계에서 추가한 Controller 인터페이스 기반으로 다시 구현한다. execute() 메소드의 반환 값은 리다이렉트 방식으로 이동할 경우 redirect:로 시작하고 포워드 방식으로 이동할 경우 JSP 경로를 반환한다.
+
 ```java
 Hint
 public class ListUserController implements Controller{
@@ -449,21 +468,28 @@ public class ListUserController implements Controller{
     }
 }
 ```
+
 - RequestMapping클래스를 추가해 요청 URL과 컨트롤러 매핑을 설정한다.
+
 ```
 Hint
 요청 URL과 컨트롤러를 매핑할 때 Map<String, Controller>에 설정한다.
 ```
+
 - 특별한 로직 없이 뷰에 대한 이동만을 담당하는 ForwardController를 추가한다.
 - DispatcherServlet에서 요청 URL에 해당하는 Controller를 찾아 execute() 메소드를 호출해 실질적인 작업을 위임한다.
 - Controller의 execute() 메소드 반환 값 String을 받아 서블릿에서 JSP로 이동할 때의 중복을 제거한다.
+
 ```
 Hint
 반환 값이 redirect:로 시작할 경우 sendRedirect()로 이동하고, redirect:이 아닌 경우 RequestDispatcher의 forward방식으로 이동한다.
 예를 들어 redirect:/user/list라면 /user/list URL로 리다이렉트하도록 구현한다.
 ```
+
 ## 📌6.5 MVC 프레임워크 구현 1단계
+
 - 서블릿에서 JSP로 이동을 할 때 구현해야 하는 중복 코드가 제거 되었다.
+
 ```java
 public class ListUserController implements Controller {
     @Override
@@ -477,7 +503,9 @@ public class ListUserController implements Controller {
     }
 }
 ```
+
 - 특별한 로직 없이 뷰에 대한 이동만을 담당하는 ForwardController 추가
+
 ```java
 public class ForwardController implements Controller {
     private String forwardUrl;
@@ -495,7 +523,9 @@ public class ForwardController implements Controller {
     }
 }
 ```
+
 - 서비스에서 발생하는 모든 요청 URL과 각 URL에 대한 서비스를 다 ㅁ당할 컨트롤러를 연결하는 작업을 한다.
+
 ```java
 public class RequestMapping {
     private static final Logger logger = LoggerFactory.getLogger(DispatcherServlet.class);
@@ -525,7 +555,9 @@ public class RequestMapping {
     }
 }
 ```
+
 - 클라이언트의 모든 요청을 받아 URL에 해당하는 컨트롤러로 작업을 위임하고, 실행된 결과 페이지로 이동하는 작업
+
 ```java
 @WebServlet(name = "dispatcher", urlPatterns = "/", loadOnStartup = 1)
 public class DispatcherServlet extends HttpServlet {
@@ -571,8 +603,10 @@ public class DispatcherServlet extends HttpServlet {
 
 해당 코드에서 서블릿 매핑을 "/"로 하면 모든 요청 URL이 연결된다. 그러나 보통 모든 요청을 연결하면 *을 사용하여 /*을 사용한다 생각한다.
 
-/*을 사용할 수 있으나 이와 같이 매핑을 하게 되면 모든 JSP에 대한 요청이 연결되므로 정상적으로 처리되지 않는 문제가 발생한다.
+/\*을 사용할 수 있으나 이와 같이 매핑을 하게 되면 모든 JSP에 대한 요청이 연결되므로 정상적으로 처리되지 않는 문제가 발생한다.
+
 ## "/"매핑
+
 톰캣 서버의 기본 설정을 보면 "/" 설정은 "default"라는 이름을 가지는 서블릿을 매핑해 정적 자원을 처리하도록 구현하고 있다.
 
 이 설정을 DispatcherSevlet에서 다시 재정의함으로써 JSP에 대한 요청은 처리하지 않으면서 그 외의 모든 요청을 담당하도록 구현되어있다.
@@ -581,11 +615,12 @@ public class DispatcherServlet extends HttpServlet {
 이에 대한 처리는 DispatcherSevlet으로 요청하기 전에 core.web.filter.ResourceFilter에서 처리하도록 구현되어있다.
 이와 같이 설정할 경우 주의할 점이 하나 있다.
 
-HomeController에서 "/"로 매핑할 경우 index.jsp가 존재하는 경우  HomeController로 가는 것이 아니라 index.jsp로 요청이 처리된다. 
+HomeController에서 "/"로 매핑할 경우 index.jsp가 존재하는 경우 HomeController로 가는 것이 아니라 index.jsp로 요청이 처리된다.
 
 **이는 path가 없는 경우 처리를 담당하는 기본 파일로 설정되어 있기 때문이다.**
 
 ---
+
 **서블릿을 매핑할때 loadOnStartup설정을 추가할 수 있다.**
 
 이 설정은 서블릿의 인스턴스를 생성하는 시점과 초기화를 담당하는 init() 메소드를 어느 시점에 호출할 것인가를 결정하는 설정이다.
@@ -593,17 +628,21 @@ HomeController에서 "/"로 매핑할 경우 index.jsp가 존재하는 경우  H
 해당 설정을 하지 않을 경우 서블릿 인스턴스 생성과 초기화는 서블릿 컨테이너가 시작을 완료한 후 클라이언트의 요청이 최초로 발생하는 시점에 진행된다. 이때 초기화 순서는 loadOnStartup설정 숫자 값이 낮은 순으로 진행된다.
 
 ---
+
 DispatcherServlet의 move()메소드를 보면 각 서블릿에서 서블릿과 JSP 사이를 이동하기 위해 구현한 모든 중복 코드를 담당하고 있다. 이는 리팩토링을 함으로 써 서비스의 복잡도가 증가하더라도 유지보수하기 좋은 코드로 만들 수 있다.
 
 **이 같은 구조로 MVC 프레임 워크를 구현하는 패턴을 프론트 컨트롤러 패턴이라고 한다.**
 
 프론트 컨트롤러 패턴 - 각 콘트롤러의 앞에 모든 요청을 받아 각 컨트롤러에 작업을 위임하는 방식
+
 ## 📌6.6 쉘 스크립트를 활용한 배포 자동화
 
 ### **6.6.1 요구사항**
+
 - 지금까지 구현한 기능을 개발 서버에 톰캣 서버를 설치한 후 배포한다.
 - 서버가 정상적으로 실행되고 있는지 톰캣 로그 파일을 통해 모니터링한다.
 - 쉘 스크립트를 만들어 배포 과정을 자동화한다.
+
 ### **6.6.2 힌트**
 
 1. 톰캣 서버 설치
@@ -632,6 +671,23 @@ DispatcherServlet의 move()메소드를 보면 각 서블릿에서 서블릿과 
 2. **HTTP & Network : 그림으로 배우는 책으로 학습(우에노 센 저/이병억 역, 영진닷컴/2015)"**
 
 ### **6.7.2 쉘 스크립트와 배포 자동화**
+
+- **쉘 스크립트란 간단히 말하자면 Unix커맨드등을 나열해서 실행하는 것이다. 언제 어떤 조건으로 어떠한 명령을 실행시킬 것인가, 파일을 컨텐츠를 읽어 들일 것인가, 로그 파일을 작성하는 것 등을 할 수 있다.**
+
+ex)쉘 스크립트로 Hello, World! 작성
+
+```
+#!/bin/sh
+echo "Hello, World!"
+
+$ chmod 755 test.sh
+$ ./test.sh
+
+$ sh test.sh
+
+$ bash test.sh
+```
+
 굳이 쉘 스크립트를 활용하지 않고 같은 기능을 지원하는 다른 도구를 사용해도 된다. 즉 개발자가 단순, 반복적으로 하는 작업을 최소한의 시간 투자로 자동화할 수 있다면 그 자체로 목적을 달성하는 것이다.
 
 쉘 스크립트를 활용하면 개발자의 무수히 많은 단순, 반복적인 수동 작업을 자동화하는 것이 가능하다. 특히 웹 백엔드 개발자에게 자동화된 배포 환경을 구축하는 것은 많은 시간을 아낄 수 있는 중요한 작업이다.
