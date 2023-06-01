@@ -6,12 +6,11 @@ HTTP 웹 서버가 가지고 있었던 문제
 - 해결책 : 데이터베이스 서버 도입하여 데이터를 영구적으로 저장하고 조회 가능
 
 ## **📌 7장 목표**
---- 
+
 지금까지 구현한 회원 데이터를 데이터베이스 서버에서 관리하고 JDBC API를 통해 접근하도록 구현
 
 ## 7.1) 회원 데이터를 DB에 저장하기
 
----
 
 이 책은 경량 데이터베이스 중의 하나인 H2 데이터베이스를 사용하고 있다
 
@@ -25,7 +24,6 @@ HTTP 웹 서버가 가지고 있었던 문제
 
 ### 7.1.1 실습 코드 리뷰 및 JDBC 복습
 
----
 
 1. ContextLoaderListener 클래스
 
@@ -121,23 +119,12 @@ public class CreateUserController implements Controller {
 
 ### **7.1.2 회원 목록 실습**
 
----
-
-```java
-
-```
 
 ### **7.1.3 개인정보 수정 실습**
 
----
-
-```java
-
-```
 
 ## 7.2) DAO 리팩토링 실습
 
----
 
 - JDBC를 사용하는 UserDao는 많은 중복 코드가 존재한다. 데이터베이스에 쿼리 하나를 실행하기 위해 개발자가 구현해야 할 코드가 너무 많고 대부분 매번 반복된다. 이와 같이 많은 중복이 있고, 반복적인 부분이 있는 코드는 공통 라이브러리를 만들어 제거할 수 있다.
 
@@ -162,21 +149,17 @@ public class CreateUserController implements Controller {
 
 ### **7.2.1 요구사항**
 
----
-
-- JDBC에 대한 공통 라이브러리를 만들어 개발자가 SQL 쿼리, 쿼리에 전달할 인자, SELECT 구문의 경우 조회한 데이터를 추출하는 3가지 구현에만 집중하도록 해야 함
-- SQLException을 런타임 Exception으로 변환해 try/catch 절로 인해 소스코드의 가독성을 해치지 않도록 해야 함
+- JDBC에 대한 공통 라이브러리를 만들어 개발자가 SQL 쿼리, 쿼리에 전달할 인자, SELECT 구문의 경우 조회한 데이터를 추출하는 3가지 구현에만 집중하도록 해야 한다.
+- SQLException을 런타임 Exception으로 변환해 try/catch 절로 인해 소스코드의 가독성을 해치지 않도록 해야 한다.
 
 ### **7.2.2 요구사항 분리 및 힌트**
 
----
 
 - 클래스 다이어그램을 활용해 UserDao 클래스의 각 단계별 리팩토링을 진행한다.
 - 7.3의 동영상 참고
 
 ## 7.3) 동영상을 활용한 DAO 리팩토링 실습
 
----
 
 1. INSERT, UPDATE, DELETE문에 대한 중복 제거 과정
    - http://youtu.be/ylrMBeakVnk
@@ -193,11 +176,9 @@ public class CreateUserController implements Controller {
 
 ## 7.4) DAO 리팩토링 및 설명
 
----
 
 ### **7.4.1 메소드 분리**
 
----
 
 Extract Method 리팩토링을 통해 메소드 분리 작업
 
@@ -231,9 +212,8 @@ public class UserDao{
 
 ### **7.4.2 클래스 분리**
 
----
 
-- UserDao 클래스는 라이브러리로 구현할 부분(insert() 메소드)와 개발자가 매번 구현해야 할 부분(createQueryForInsert(), setValuesForInsert() 메소드)로 나눠짐
+- UserDao 클래스는 라이브러리로 구현할 부분(insert() 메소드)와 개발자가 매번 구현해야 할 부분(createQueryForInsert(), setValuesForInsert() 메소드)로 나눠진다.
 - 따라서 insert() 메소드를 공통 라이브러리로 구현하기 위해 InsertJdbcTemplate 클래스를 추가한 후 UserDao의 insert() 메소드를 InsertJdbcTemplate로 이동한다.
 
 ```java
@@ -290,7 +270,6 @@ public class UserDao{
 
 ### **7.4.3 UserDao와 InsertJdbcTemplate의 의존관계 분리**
 
----
 
 InsertJdbcTemplate와 UserDao는 의존관계를 가지고 있기 때문에 UserDao가 아닌 다른 곳에서는 사용할 수 없다.
 
@@ -361,7 +340,6 @@ public class UserDao {
 
 ### **7.4.4 InsertJdbcTemplate과 UpdateJdbcTemplate 통합**
 
----
 
 1. 공통 라이브러리를 담당할 클래스를 분리하여 굳이 메소드 이름을 ForInsert, ForUpdate와 같이 붙일 필요가 없어졌다. 따라서, 메소드 이름을 createQuery(), setValues()로 Rename 리팩토링 한다.
 2. JdbcTemplate 클래스도 마찬가지로 Insert, Update 두 개의 클래스로 분리할 필요없이 하나의 JdbcTemplate 클래스로 통합하여 사용하고, 메소드 이름도 insert(), update()로 사용하도록 한다.
@@ -427,9 +405,7 @@ public class UserDao {
 
 ### **7.4.5 User 의존관계 제거 및 SQL 쿼리 인자로 전달**
 
----
-
-### 1. User 읜존관계 제거
+### 1. User 의존관계 제거
 
 - JdbcTempalte을 UserDao가 아닌 다른 곳에서 사용하려면 User에 대한 의존관계도 끊어야 한다.
 
@@ -552,8 +528,6 @@ public class UserDao {
 
 ### **7.4.6 SELECT문에 대한 리팩토링**
 
----
-
 SELECT의 경우 리팩토링 방법은 같지만, 조회한 데이터를 자바 객체로 변환해야 하는 부분이 추가적으로 필요하다.
 
 - mapRow() 메소드를 추상 메소드로 추가하여 조회한 데이터를 자바 객체로 변환하는 부분을 구현한다.
@@ -606,7 +580,6 @@ public abstract class SelectJdbcTemplate {
 
 ### **7.4.7 JdbcTemplate과 SelectJdbcTemplate 통합**
 
----
 
 두 클래스의 구현 부분에서 중복 코드가 많아 두 개의 클래스를 JdbcTemplate 하나로 통합한다.
 
@@ -664,8 +637,6 @@ public class UserDao {
 - 두 개의 클래스를 하나로 통합한 결과 UserDao의 insert(), update() 메소드에서 다음과 같이 mapRow() 메소드를 구현해야 하는 수정 사항이 발생했다.
 
 ### **7.4.8 인터페이스 추가를 통한 문제점 해결**
-
----
 
 **수정 사항 해결 방법**
 
@@ -742,13 +713,92 @@ public  class JdbcTemplate {
 		}
 	}
 ```
+```java
+public class UserDao {
+	public void insert(User user) throws SQLException {
+		JdbcTemplate jdbcTemplate = new JdbcTemplate();
+		PreparedStatementSetter pss = new PreparedStatementSetter() {
 
+			@Override
+			public void setValues(PreparedStatement pstmt) throws SQLException {
+				// TODO Auto-generated method stub
+				pstmt.setString(1, user.getUserId());
+				pstmt.setString(2, user.getPassword());
+				pstmt.setString(3, user.getName());
+				pstmt.setString(4, user.getEmail());
+
+			}
+		};
+		String sql = "INSERT INTO USERS VALUES (?, ?, ?, ?)";
+		jdbcTemplate.update(sql, pss);
+	}
+
+	void update(User user) throws SQLException {
+		JdbcTemplate jdbcTemplate = new JdbcTemplate();
+		PreparedStatementSetter pss = new PreparedStatementSetter() {
+
+			@Override
+			public void setValues(PreparedStatement pstmt) throws SQLException {
+				// TODO Auto-generated method stub
+				pstmt.setString(1, user.getPassword());
+				pstmt.setString(2, user.getName());
+				pstmt.setString(3, user.getEmail());
+				pstmt.setString(4, user.getUserId());
+			}
+		};
+		String sql = "UPDATE USERS SET password=?, name =? ,email=? WHERE userId =?";
+		jdbcTemplate.update(sql, pss);
+	}
+
+	public List<User> findAll() throws SQLException {
+		JdbcTemplate jdbcTemplate = new JdbcTemplate();
+		PreparedStatementSetter pss = new PreparedStatementSetter() {
+
+			@Override
+			public void setValues(PreparedStatement pstmt) throws SQLException {
+				// TODO Auto-generated method stub
+
+			}
+		};
+		RowMapper rowMapper = new RowMapper() {
+			@Override
+			public Object mapRow(ResultSet rs) throws SQLException {
+				// TODO Auto-generated method stub
+				return new User(rs.getString("userId"), rs.getString("password"), rs.getString("name"),
+						rs.getString("email"));
+			}
+		};
+		String sql = "SELECT userId, password,name, email FROM USERS";
+		return (List<User>) jdbcTemplate.query(sql, pss, rowMapper);
+	}
+
+	public User findByUserId(String userId) throws SQLException {
+		JdbcTemplate jdbcTemplate = new JdbcTemplate();
+		PreparedStatementSetter pss = new PreparedStatementSetter() {
+
+			@Override
+			public void setValues(PreparedStatement pstmt) throws SQLException {
+				pstmt.setString(1, userId);
+			}
+		};
+		RowMapper rowMapper = new RowMapper() {
+			@Override
+			public Object mapRow(ResultSet rs) throws SQLException {
+				return new User(rs.getString("userId"), rs.getString("password"), rs.getString("name"),
+						rs.getString("email"));
+			}
+		};
+
+		String sql = "SELECT userId, password, name, email FROM USERS WHERE userid=?";
+		return (User) jdbcTemplate.queryForObject(sql, pss, rowMapper);
+
+	}
+}
+```
 - 메소드 하나만 가지는 인터페이스를 생성한 후 필요에 따라 메소드의 인자로 전달하여 문제점 해결했다. 변화 시점이 다른 부분을 서로 다른 인터페이스로 분리하여 공통 라이브러리에 대한 유연함을 높였다.
 - 이 예제에서 사용한 인터페이스를 콜백(Callback) 인터페이스라고 부른다.
 
 ### **7.4.9 런타임 Exception 추가 및 AutoClosable 활용한 자원 반환**
-
----
 
 UserDao 문제점 중의 하나는 모든 메소드가 컴파일타임 Exception인 SQLException을 throw한다는 것이다
 
@@ -840,8 +890,6 @@ public  class JdbcTemplate {
 
 ### **7.4.10 제너릭(generic)을 활용한 개선**
 
----
-
 데이터를 조회할 때 매번 캐스팅을 해야 한다는 불편함이 있다.
 
 - 자바의 제너릭을 이용해 캐스팅을 하지 않도록 한다.
@@ -928,8 +976,6 @@ public class UserDao{
 
 ### **7.4.11 가변인자를 활용해 쿼리에 인자 전달하기**
 
----
-
 쿼리에 값을 전달할 때 PreparedStatement를 활용하지 않고 가변인자를 활용해 값을 전달할 수 있다.
 
 - JdbcTemplate에 가변인자를 활용하는 새로운 update() 메소드를 추가한다.
@@ -969,8 +1015,6 @@ public class UserDao{
 
 ### **7.4.12 람다를 활용한 구현**
 
----
-
 UserDao에서 RowRapper에 대한 익명 클래스를 생성하던 부분을 다음과 같이 람다를 활용해 좀 더 깔끔하게 구현할 수 있다.
 
 ```java
@@ -997,8 +1041,6 @@ public interface RowMapper<T> {
 - @FunctionalInterface 애노테이션으로 람다 표현식으로 사용할 인터페이스라고 표시한다.
 
 ## **📌 이번 실습의 목표**
-
----
 
 1. 콜백 인터페이스를 활용했을 떄의 유연함
    - 콜백 인터페이스는 라이브러리를 만들거나 코드에 유연함이 필요한 경우 유용하게 사용할 수 있다.
