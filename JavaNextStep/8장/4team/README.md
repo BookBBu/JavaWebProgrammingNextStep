@@ -254,7 +254,7 @@ String.prototype.format = function () {
 
 - JSON으로 응답을 보내는 경우 이동할 JSP 페이지가 없어 불필요하게 null을 반환해야 한다.
 
-  - 컨트롤러에서 응답할 뷰가 JSP 하나에서 JSPdhk JSON 두 가지로 증가했기 때문이다. 뷰가 JSP(또는 서블릿)일 경우는 String을 항상 반환해야 했지만 JSON일 경우는 반환 값이 필요없다. 이 문제를 해결하는 가장 쉬운 방법은 DispatcherServlet에서 execute() 메소드의 반환 값이 null일 때 아무런 일도 하지 않도록 if/else 형태로 구현할 수 있다. 그렇다면 이후에 PDF, 엑셀과 같은 뷰가 추가된다면 또 다시 그에 따른 예외 처리를 해야한다. 쉬운 해결책이기는 하지만 근본적인 해결책은 될 수 없다.
+  - 컨트롤러에서 응답할 뷰가 JSP 하나에서 JSP와 JSON 두 가지로 증가했기 때문이다. 뷰가 JSP(또는 서블릿)일 경우는 String을 항상 반환해야 했지만 JSON일 경우는 반환 값이 필요없다. 이 문제를 해결하는 가장 쉬운 방법은 DispatcherServlet에서 execute() 메소드의 반환 값이 null일 때 아무런 일도 하지 않도록 if/else 형태로 구현할 수 있다. 그렇다면 이후에 PDF, 엑셀과 같은 뷰가 추가된다면 또 다시 그에 따른 예외 처리를 해야한다. 쉬운 해결책이기는 하지만 근본적인 해결책은 될 수 없다.
 
 - AddAnswerController와 DeleteAnswerController에서 자바 객체를 JSON으로 변환하고 응답하는 부분에서 중복이 발생한다.
 
