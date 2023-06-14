@@ -5,7 +5,7 @@ Annotation과 Reflection을 활용해 ReqeusetMapping을 구현해보자
 
 ## 10.1 MVC 프레임워크 요구사항 3단계
 
-현재 클라이언트-서버 통신 과정
+**현재 클라이언트-서버 통신 과정**
 ```
 @WebServlet(name = "dispatcher", urlPatterns = "/", loadOnStartup = 1)
 public class DispatcherServlet extends HttpServlet {
@@ -46,7 +46,7 @@ public class DispatcherServlet extends HttpServlet {
 4. 컨트롤러 실행 및 view 객체 반환(execute)
 5. view 객체 실행(render) 
 
-기존 controller mapping 초기화 코드
+**기존 controller mapping 초기화 코드**
 
 ```
 public class RequestMapping{
@@ -307,7 +307,7 @@ public class AnnotationHandlerMapping implements HandlerMapping {
 
 이제 클라이언트 요청을 handlerKey로 만들어 해당 키로 HandlerExecution을 찾으면 요청 별 핸들러를 실행시킬 수 있게 된다.
 우선 클라이언트 요청(HttpServletRequest)를 handlerKey로 변환하는 기능을 AnnotationHandlerMapping에 추가한다.
-
+```
 public class AnnotationHandlerMapping implements HandlerMapping {
     ...
     //요청으로 HandlerKey를 생성해 해당 키에 맞는 handlerExecution이 있는지 확인하는 메솓드
@@ -323,7 +323,7 @@ public class AnnotationHandlerMapping implements HandlerMapping {
         return handlerExecutions.get(new HandlerKey(requestUri, rm));
     }
 }
-
+```
 ### 10.2.4 DispatcherServlet과 AnnotationHandlerMapping 통합
 
 현재 프로젝트는 1)직접 mapping에 핸들러를 넣는 방법과 2)annotation으로 mapping에 handler를 넣는 방법 2가지를 가지고있다.
