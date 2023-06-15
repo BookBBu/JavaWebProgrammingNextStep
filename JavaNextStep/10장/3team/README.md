@@ -1,4 +1,4 @@
-# 10장 새로운 프렝임워크 구현을 통한 점진적 개선
+# 10장 새로운 프레임워크 구현을 통한 점진적 개선
 
 Annotation과 Reflection을 활용해 ReqeusetMapping을 구현해보자
 
@@ -7,6 +7,7 @@ Annotation과 Reflection을 활용해 ReqeusetMapping을 구현해보자
 
 **현재 클라이언트-서버 통신 과정**
 ```
+//DispatcherServlet 클래스
 @WebServlet(name = "dispatcher", urlPatterns = "/", loadOnStartup = 1)
 public class DispatcherServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
