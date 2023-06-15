@@ -65,6 +65,7 @@ public class RequestMapping{
 ```
 
 컨트롤러가 추가될 때마다 RequestMapping의 initMapping을 추가해야 됨 (개방-폐쇄의 원칙 위반).
+<br>
 -> RequestMapping 코드를 건들지 않고 컨트롤러 추가를 할 수 있는 방법 필요
 
 해결법 : Annotaion(@Controller, @RequestMapping)를 활용한 컨트롤러의 핸들러 자동 등록
@@ -188,7 +189,7 @@ public class ControllerScanner {
 
 ### 10.2.2 @RequestMapping annotiation 설정을 활용한 매핑
 
-@RequestMapping과 일치하는 요청을 '찾아서' '실행'시키는 기능이 필요하다.
+@RequestMapping과 일치하는 '요청'을 찾아서 '실행'시키는 기능이 필요하다.
 빠른 검색을 위해 Map<요청,실행> 으로 구성된 map으로 RequestMapping을 구현한다.
 
 1) 요청 key(HandlerKey)
@@ -263,7 +264,7 @@ public class AnnotationHandlerMapping implements HandlerMapping {
 		//모든 컨트롤러 탐색
         Map<Class<?>, Object> controllers = controllerScanner.getControllers();
         
-		//모든 @RequestMapping이 붙은 메소드 탐색
+		//모든 @RequestMapping이 붙은 메소드,클래스 탐색
 		Set<Method> methods = getRequestMappingMethods(controllers.keySet());
 		
 		//모든 메소드의 handlerKey와 handlerExecution 생성
@@ -306,6 +307,7 @@ public class AnnotationHandlerMapping implements HandlerMapping {
 ### 10.2.3 클라이언트 요청에 해당하는 HandlerExecution 반환
 
 이제 클라이언트 요청을 handlerKey로 만들어 해당 키로 HandlerExecution을 찾으면 요청 별 핸들러를 실행시킬 수 있게 된다.
+<br>
 우선 클라이언트 요청(HttpServletRequest)를 handlerKey로 변환하는 기능을 AnnotationHandlerMapping에 추가한다.
 ```
 public class AnnotationHandlerMapping implements HandlerMapping {
@@ -327,8 +329,8 @@ public class AnnotationHandlerMapping implements HandlerMapping {
 ### 10.2.4 DispatcherServlet과 AnnotationHandlerMapping 통합
 
 현재 프로젝트는 1)직접 mapping에 핸들러를 넣는 방법과 2)annotation으로 mapping에 handler를 넣는 방법 2가지를 가지고있다.
-2가지 방법 모두 통용되게 하기 위해 1)과 2)를 통합시킬 필요가 있다.
-1)과 2)의 통합을 위해 인터페이스로 추상화를 진행한다.
+<br>2가지 방법 모두 통용되게 하기 위해 1)과 2)를 통합시킬 필요가 있다.
+<br>1)과 2)의 통합을 위해 인터페이스로 추상화를 진행한다.
 
 ```
 //요청 객체를 이용해 맞는 핸들러를 찾는 기능을 가진 인터페이스
@@ -376,7 +378,7 @@ public class LegacyHandlerMapping implements HandlerMapping {
 ```
 
 이제 기존 방법과 어노테이션 방법이 getHandler라는 메소드 하나로 request객체를 이용해 요청에 맞는 핸들러를 찾을 수 있게 됐다.
-DispatcherServlet에서 어노테이션 방식으로 mapping을 등록할 수 있도록 수정한다.
+<br>DispatcherServlet에서 어노테이션 방식으로 mapping을 등록할 수 있도록 수정한다.
 
 ```
 @WebServlet(name = "dispatcher", urlPatterns = "/", loadOnStartup = 1)
@@ -470,7 +472,7 @@ DispatcherServlet의 execute를 다시보면 handlerExecution의 종류가 많�
 ```
 
 이렇게 되면 execute를 수정해야 하므로 개방-폐쇄의 원칙에 어긋나게 되어 확장성이 떨어진다.
-이를 해결하기위해 인터페이스로 추상화하고 각 종류가 다른 handler를 실행시키는 handlerAdaptor 클래스를 생성한다.
+<br>이를 해결하기위해 인터페이스로 추상화하고 각 종류가 다른 handler를 실행시키는 handlerAdaptor 클래스를 생성한다.
 
 ```
 //핸들러를 실행시키는 인터페이스
