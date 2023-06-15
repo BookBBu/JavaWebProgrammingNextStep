@@ -92,7 +92,6 @@ public class RequestMapping{
 - ElementType.LOCAL_VARIABLE : 지역 변수 
 - ElementType.ANNOTATION_TYPE : 어노테이션 
 - ElementType.PACKAGE : 패키지
-- ElementType.TYPE : 클래스, 인터페이스, enum
 - ElementType.TYPE_PARAMETER : 타입 파라미터
 - ElementType.TYPE_USE : 타입
 - ElementType.MODULE : 모듈
@@ -141,7 +140,7 @@ public class RequestMapping{
 
 - 종류
 	- getFields/getDeclaredFields : public/모든 필드를 가져오는 메소드
-	- getConstructors/getDeclaredConstructors : public/모든 필드를 가져오는 메소드
+	- getConstructors/getDeclaredConstructors : public/모든 생성자를 가져오는 메소드
 	- getMethods/getDeclaredMethods : public/모든 메소드를 가져오는 메소드
 
 
