@@ -7,7 +7,14 @@
 **기존 문제점**
 - 새로운 컨트롤러가 추가될 때마다 매번 RequestMapping 클래스에 요청 URL과 컨트롤러를 추가하는 작업 필요
   (유지보수 차원에서 좋지 않음)
-<br/><br/>
+
+
+  그래서 새로운 기능이 추가될 때마다
+- 매번 컨트롤러를 추가하는 것이 아니라 메소드를 추가
+- 요청 URL 매핑시 HTTP 메소드 활용
+
+
+  을 하도록 한다.
 ```java
 @Controller
 public class UserController extends AbstractNewController {
@@ -24,12 +31,7 @@ public class UserController extends AbstractNewController {
     [...]
 }
 ```
-그래서 새로운 기능이 추가될 때마다 
-- 매번 컨트롤러를 추가하는 것이 아니라 메소드를 추가
-- 요청 URL 매핑시 HTTP 메소드 활용
-<br/>
-
-=> 위 코드와 같이 애노테이션 기반으로 MVC 프레임워크를 통합하자
+위 코드와 같이 애노테이션 기반으로 MVC 프레임워크를 통합하자
 
 **커스텀 어노테이션 구현**
 - Annotation : 자바 소스 코드에 추가하여 사용할 수 있는 메타데이터의 일종
@@ -191,6 +193,7 @@ public class HandlerExecution {
 3. AnonotationHandlerMapping
 <br/>
    AnonotationHandlerMapping클래스에서 HandlerKey와 HandlerExecution을 연결한다.
+
 ```java
 public class AnnotationHandlerMapping implements HandlerMapping {
     private static final Logger logger = LoggerFactory.getLogger(AnnotationHandlerMapping.class);
@@ -241,6 +244,7 @@ public class AnnotationHandlerMapping implements HandlerMapping {
     }
 }
 ```
+
 위 과정을 통해 요청을 컨트롤러에 매핑하는 기능을 만들었다.<br/>
 기존의 `RequestMapping`과 다른 점은 `RequestMapping`은 개발자가 수동으로 등록하고, `AnnotationHandlerMapping`은 애노테이션을 설정하면 자동으로 매핑된다.
 
@@ -339,14 +343,12 @@ public class DispatcherServlet extends HttpServlet {
 ## 10.3 인터페이스가 다른 경우 확장성 있는 설계
 기존 컨트롤러인 Controller 인터페이스와 새로 추가한 컨트롤러인 Handler Execution 클래스를 보면 메소드 인자와 반환 값이 같아 둘을 통합하는 것이 가능하다.
 - HandlerExecution 클래스도 Controller 인터페이스를 구현하는 경우
-  - 장점
-     <br/>
+  - 장점 <br/>
     같은 인터페이스(Controller)를 구현함으로 캐스팅 작업이 빠져 소스코드가 깔끔해짐
-  - 단점
-  <br/>
+  - 단점 <br/>
     외부 라이브러리, 프레임워크 기반의 컨트롤러를 개발할 경우 하나의 인터페이스로 통합하는게 불가능하기 때문에 확장성이 떨어짐
 
-그래서 새로운 유형의 컨트롤러가 추가되더라도 서로 간의 영향을 주지 않으면서 확장할 수 있어야 한다.
+그래서 새로운 유형의 컨트롤러가 추가되더라도 **서로 간의 영향을 주지 않으면서 확장**할 수 있어야 한다.
 <br/>
 여러 개의 프레임워크 컨트롤러는 역할이 같기 때문에 **하나의 추상화 단계를 구현**하면 된다.
 
