@@ -7,14 +7,13 @@
 **기존 문제점**
 - 새로운 컨트롤러가 추가될 때마다 매번 RequestMapping 클래스에 요청 URL과 컨트롤러를 추가하는 작업 필요
   (유지보수 차원에서 좋지 않음)
+<br/>
 
-
-  그래서 새로운 기능이 추가될 때마다
+그래서 새로운 기능이 추가될 때마다
 - 매번 컨트롤러를 추가하는 것이 아니라 메소드를 추가
 - 요청 URL 매핑시 HTTP 메소드 활용
 
-
-  을 하도록 한다.
+을 하도록 한다.
 ```java
 @Controller
 public class UserController extends AbstractNewController {
@@ -191,9 +190,8 @@ public class HandlerExecution {
 `invoke()`를 통해 메서드를 실행시킬 수 있다.
 
 3. AnonotationHandlerMapping
-<br/>
-   AnonotationHandlerMapping클래스에서 HandlerKey와 HandlerExecution을 연결한다.
 
+AnonotationHandlerMapping클래스에서 HandlerKey와 HandlerExecution을 연결한다.
 ```java
 public class AnnotationHandlerMapping implements HandlerMapping {
     private static final Logger logger = LoggerFactory.getLogger(AnnotationHandlerMapping.class);
