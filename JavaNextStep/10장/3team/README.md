@@ -74,7 +74,7 @@ public class RequestMapping{
 1. @Controller를 가지고 있는 모든 클래스를 탐색하는 ControllerScanner 필요
 2. Controller내부의 @RequestMapping을 가지고 있는 메소드(핸들러)를 url과 요청 타입으로 구성된 key로 mappings에 등록하는 HandlerMapping 필요
 3. 요청 객체인 Request를 타입(GET,POST ...)과 URL를 조합한 mapping key로 변환하는 기능 필요
-4. 기존 initMapping을 통한 핸들러 등록과 어노테이션을 통한 핸들러 실행기 필요
+4. 기존 initMapping을 통한 등록된 핸들러와 어노테이션을 통한 등록된 핸들러들의 실행기 필요
 
 
 **Annotation**
