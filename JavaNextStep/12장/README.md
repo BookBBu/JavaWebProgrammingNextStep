@@ -120,12 +120,13 @@ public interface Injector {
         템플릿 메소드 패턴의 상위 클래스, 알고리즘의 뼈대를 정의
         2. ConcreteClass
         템플릿 메소드 패턴의 하위 클래스, AbstractClass를 상속
-    </aside>
+
     
     - 클래스 구조 및 역할
-        
-        ![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/82045f75-9167-4cb6-b80f-b0871940ff07/Untitled.png)
-        
+  
+       ![image](https://github.com/BookBBu/JavaWebProgrammingNextStep/assets/80014833/9add5da5-fe6b-4ca5-906c-308fddad8180)
+ 
+       
     - BeanFactory
         - DI 컨테이너의 핵심 동작
         - Bean 인스턴스의 생성, 주입, 조회, 초기화
@@ -317,7 +318,7 @@ public interface Injector {
     - 빈 클래스의 상태 정보를 별도의 클래스로 추상화해 관리
 - **클래스 구조**
     
-   ![1](https://github.com/BookBBu/JavaWebProgrammingNextStep/assets/80014833/d129ca20-28ac-4e17-81fe-d76b28d622af)
+ ![image](https://github.com/BookBBu/JavaWebProgrammingNextStep/assets/80014833/1451326e-0977-4dc8-b219-aa4437da7660)
 
     
 - **ClasspathBeanDefinitionScanner**
@@ -624,7 +625,8 @@ public interface Injector {
     ****core **:** 주요 비즈니스 로직이나 핵심 기능을 담고 있는 모듈
     next : core 모듈에 추가적인 기능이나 확장을 제공하는 모듈들을 담을 수 있는 공간
     
-    ![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/bf0db937-4b81-4fe2-94e8-f5ccb9cba9e3/Untitled.png)
+    ![image](https://github.com/BookBBu/JavaWebProgrammingNextStep/assets/80014833/1b4d0fb2-cbe3-4f4c-bea3-a77cac2ed489)
+
     
 
     
